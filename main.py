@@ -1,11 +1,12 @@
 import speech_recognition as sr
 import sys
 
-wakeword = ["merklin", "märklin", "merkel"]
+keyword = ["merklin", "märklin", "merkel"]
 
 recognizer = sr.Recognizer()
 
 
+# TODO: Use offline speech recognition instead of Google's API
 def speech_to_text(audio):
     text = recognizer.recognize_google(audio, language="de-DE")
     return text.lower()
@@ -24,7 +25,7 @@ def listen_for_wakeword():
             text = speech_to_text(audio)
             print("You said: {}".format(text))
 
-            if text in wakeword:
+            if text in keyword:
                 listen_for_command()
         except sr.UnknownValueError:
             print("Could not understand audio")
