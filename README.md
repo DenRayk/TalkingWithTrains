@@ -33,6 +33,6 @@ python main.py
 The system will begin listening for voice commands. Speak clearly and wait for the system's responses.
 
 ## Dependencies
-- Python 3.x
+- Python 3.11.6
 - SpeechRecognition 3.10.0
 - PyAudio 0.2.13
