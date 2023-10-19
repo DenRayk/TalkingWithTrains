@@ -1,36 +1,58 @@
-import sounddevice as sd
-import whisper
-import time
+import speech_recognition as sr
+import sys
 
-from datetime import datetime
-from os.path import abspath, dirname, join, exists
-from scipy.io.wavfile import write
+wakeword = ["merklin", "märklin", "merkel"]
 
-model = whisper.load_model("base")
+recognizer = sr.Recognizer()
 
-# Sampling frequency
-# Regardless of the sampling rate used in the original audio file,
-# the audio signal gets resampled to 16kHz (via ffmpeg). Anything grater than 16kHz should work.
-# see https://github.com/openai/whisper/discussions/870.
-freq = 44100
 
-# Recording duration in seconds
-duration = int(input("select duration of the audio: "))
+def speech_to_text(audio):
+    text = recognizer.recognize_google(audio, language="de-DE")
+    return text.lower()
 
-# Start recorder with the given values of
-# duration and sample frequency.
 
-recording = sd.rec(int(duration * freq),
-                   samplerate=freq, channels=2)
+def listen_for_wakeword():
+    while True:
 
-# Record audio for the given number of seconds
-sd.wait()
+        with sr.Microphone() as source:
+            recognizer.adjust_for_ambient_noise(source, duration=0.2)
+            print("Listening for wakeword...")
+            audio = recognizer.listen(source)
 
-date = datetime.now().strftime("%d_%m_%Y_%H_%M_%S")
-audioPath = join(dirname(abspath(__file__)), "prompts", f"prompt_{date}.wav")
+        try:
 
-write(audioPath, freq, recording)
+            text = speech_to_text(audio)
+            print("You said: {}".format(text))
 
-result = model.transcribe(audioPath)
+            if text in wakeword:
+                listen_for_command()
+        except sr.UnknownValueError:
+            print("Could not understand audio")
+        except sr.RequestError as e:
+            print("Could not request results; {0}".format(e))
 
-print(result)
+
+def listen_for_command():
+    with sr.Microphone() as source:
+        print("Listening for command...")
+        audio = recognizer.listen(source)
+
+        text = speech_to_text(audio)
+
+        if text is not None:
+            print("You said: {}".format(text))
+            process_command(text)
+        else:
+            print("Could not understand audio")
+
+
+def process_command(text):
+    print("Processing command...")
+    # TODO: Add code to process commands
+
+
+while True:
+    try:
+        listen_for_wakeword()
+    except KeyboardInterrupt:
+        sys.exit(0)
