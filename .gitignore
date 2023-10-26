@@ -163,3 +163,4 @@ cython_debug/
 /prompts
 ffmpeg.exe
 /comparison/vosk/models/
+/comparison/vosk/model/
