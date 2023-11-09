@@ -1,5 +1,6 @@
 import speech_recognition as sr
 import sys
+import time
 
 keyword = ["merklin", "märklin", "merkel"]
 
@@ -7,7 +8,11 @@ recognizer = sr.Recognizer()
 
 
 def speech_to_text(audio):
+    # Test speed of speech recognition
+    start = time.time()
     text = recognizer.recognize_vosk(audio, language="de-DE")
+    end = time.time()
+    print("Time spent for recognition: {}".format(end - start))
     return text.lower()
 
 
@@ -20,7 +25,6 @@ def listen_for_wakeword():
             audio = recognizer.listen(source)
 
         try:
-
             text = speech_to_text(audio)
             print("You said: {}".format(text))
 
