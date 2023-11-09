@@ -13,7 +13,7 @@ To get started with the speech control system for the DHBW Modellbahnanlage, fol
 **1. Clone the Repository:**
 
 ```bash
-git clone https://github.com/your-username/dhbw-karlsruhe-speech-control.git
+git clone https://github.com/DenRayk/TalkingWithTrains.git
 ```
 
 **2. Install Dependencies:**
