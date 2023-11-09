@@ -19,13 +19,21 @@ source = sr.Microphone()
 warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
 
 
+def transcribe(audio, file_path):
+
+    with open(file_path, "wb") as f:
+        f.write(audio.get_wav_data())
+
+    result = tiny_model.transcribe(file_path, language="de")
+    return result['text']
+
+
 def listen_for_wake_word(audio):
     global listening_for_wake_word
-    with open("wake_detect.wav", "wb") as f:
-        f.write(audio.get_wav_data())
-    result = tiny_model.transcribe('wake_detect.wav', language="de")
-    text_input = result['text']
+
+    text_input = transcribe(audio, "wake_word.wav")
     print(text_input)
+
     if wake_word.lower() in text_input.lower().strip():
         print("Wake word detected. Please speak your prompt to TalkingWithTrains.")
         listening_for_wake_word = False
@@ -33,11 +41,10 @@ def listen_for_wake_word(audio):
 
 def prompt(audio):
     global listening_for_wake_word
+
     try:
-        with open("prompt.wav", "wb") as f:
-            f.write(audio.get_wav_data())
-        result = base_model.transcribe('prompt.wav')
-        prompt_text = result['text']
+        prompt_text = transcribe(audio, "prompt.wav")
+
         if len(prompt_text.strip()) == 0:
             print("Empty prompt. Please speak again.")
             listening_for_wake_word = True
@@ -45,12 +52,14 @@ def prompt(audio):
             print('User: ' + prompt_text)
             print('\nSay', wake_word, 'to wake me up. \n')
             listening_for_wake_word = True
+
     except Exception as e:
         print("Prompt error: ", e)
 
 
 def callback(recognizer, audio):
     global listening_for_wake_word
+
     if listening_for_wake_word:
         listen_for_wake_word(audio)
     else:
@@ -59,9 +68,12 @@ def callback(recognizer, audio):
 
 def start_listening():
     with source as s:
-        r.adjust_for_ambient_noise(s, duration=2)
+        r.adjust_for_ambient_noise(s, duration=3)
+
     print('\nSay', wake_word, 'to wake me up. \n')
+
     r.listen_in_background(source, callback)
+
     while True:
         time.sleep(1)
 
