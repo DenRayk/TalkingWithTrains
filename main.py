@@ -16,7 +16,7 @@ base_model = whisper.load_model(base_model_path)
 
 listening_for_wake_word = True
 source = sr.Microphone()
-warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
+warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=115)
 
 
 def transcribe(audio, file_path):
@@ -43,7 +43,7 @@ def prompt(audio):
     global listening_for_wake_word
 
     try:
-        prompt_text = transcribe(audio, "voice-recognition/prompt.wav")
+        prompt_text = transcribe(audio, "prompt.wav")
 
         if len(prompt_text.strip()) == 0:
             print("Empty prompt. Please speak again.")
