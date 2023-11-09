@@ -43,7 +43,7 @@ def prompt(audio):
     global listening_for_wake_word
 
     try:
-        prompt_text = transcribe(audio, "prompt.wav")
+        prompt_text = transcribe(audio, "voice-recognition/prompt.wav")
 
         if len(prompt_text.strip()) == 0:
             print("Empty prompt. Please speak again.")
@@ -72,7 +72,7 @@ def start_listening():
 
     print('\nSay', wake_word, 'to wake me up. \n')
 
-    r.listen_in_background(source, callback)
+    r.listen_in_background(source, callback, phrase_time_limit=5)
 
     while True:
         time.sleep(1)
