@@ -23,7 +23,27 @@ Make sure you have Python 3.x installed on your system. You can install project-
 ```bash
 pip install -r requirements.txt
 ```
-**3. Run the Code:**
+
+**3. Install ffmpeg:**
+
+```bash
+# on Ubuntu or Debian
+sudo apt update && sudo apt install ffmpeg
+
+# on Arch Linux
+sudo pacman - ffmpeg
+
+# on MacOS using Homebrew (https://brew.sh/) 
+brew install ffmpeg
+
+# on Windows using Chocolatey (https://chocolatey.org/)
+choco install ffmpeg
+
+# on Windows using Scoop (https://scoop.sh/) 
+scoop install ffmpeg
+```
+
+**4. Run the Code:**
 
 Run the main script to start the speech control system:
 
