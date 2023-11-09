@@ -1,59 +1,70 @@
 import speech_recognition as sr
-import sys
+import whisper
+import warnings
+import time
+import os
 
-keyword = ["merklin", "märklin", "merkel"]
+wake_word = 'Bahnhof'
+r = sr.Recognizer()
 
-recognizer = sr.Recognizer()
+# Load this file from cache if it exists, otherwise download it
+tiny_model_path = os.path.expanduser('~/.cache/whisper/tiny.pt')
+base_model_path = os.path.expanduser('~/.cache/whisper/base.pt')
 
+tiny_model = whisper.load_model(tiny_model_path)
+base_model = whisper.load_model(base_model_path)
 
-# TODO: Use offline speech recognition instead of Google's API
-def speech_to_text(audio):
-    text = recognizer.recognize_google(audio, language="de-DE")
-    return text.lower()
-
-
-def listen_for_wakeword():
-    while True:
-
-        with sr.Microphone() as source:
-            recognizer.adjust_for_ambient_noise(source, duration=0.2)
-            print("Listening for wakeword...")
-            audio = recognizer.listen(source)
-
-        try:
-
-            text = speech_to_text(audio)
-            print("You said: {}".format(text))
-
-            if text in keyword:
-                listen_for_command()
-        except sr.UnknownValueError:
-            print("Could not understand audio")
-        except sr.RequestError as e:
-            print("Could not request results; {0}".format(e))
+listening_for_wake_word = True
+source = sr.Microphone()
+warnings.filterwarnings("ignore", category=UserWarning, module='whisper.transcribe', lineno=114)
 
 
-def listen_for_command():
-    with sr.Microphone() as source:
-        print("Listening for command...")
-        audio = recognizer.listen(source)
-
-        text = speech_to_text(audio)
-
-        if text is not None:
-            print("You said: {}".format(text))
-            process_command(text)
-        else:
-            print("Could not understand audio")
+def listen_for_wake_word(audio):
+    global listening_for_wake_word
+    with open("wake_detect.wav", "wb") as f:
+        f.write(audio.get_wav_data())
+    result = tiny_model.transcribe('wake_detect.wav', language="de")
+    text_input = result['text']
+    print(text_input)
+    if wake_word.lower() in text_input.lower().strip():
+        print("Wake word detected. Please speak your prompt to TalkingWithTrains.")
+        listening_for_wake_word = False
 
 
-def process_command(text):
-    print("Processing command...")
-    # TODO: Add code to process commands
-
-
-while True:
+def prompt(audio):
+    global listening_for_wake_word
     try:
-        listen_for_wakeword()
-    except KeyboardInterrupt:
-        sys.exit(0)
+        with open("prompt.wav", "wb") as f:
+            f.write(audio.get_wav_data())
+        result = base_model.transcribe('prompt.wav')
+        prompt_text = result['text']
+        if len(prompt_text.strip()) == 0:
+            print("Empty prompt. Please speak again.")
+            listening_for_wake_word = True
+        else:
+            print('User: ' + prompt_text)
+            print('\nSay', wake_word, 'to wake me up. \n')
+            listening_for_wake_word = True
+    except Exception as e:
+        print("Prompt error: ", e)
+
+
+def callback(recognizer, audio):
+    global listening_for_wake_word
+    if listening_for_wake_word:
+        listen_for_wake_word(audio)
+    else:
+        prompt(audio)
+
+
+def start_listening():
+    with source as s:
+        r.adjust_for_ambient_noise(s, duration=2)
+    print('\nSay', wake_word, 'to wake me up. \n')
+    r.listen_in_background(source, callback)
+    while True:
+        time.sleep(1)
+
+
+if __name__ == '__main__':
+    start_listening()
