@@ -49,6 +49,7 @@ def callback(recognizer, audio):
 
 def start_listening():
     with source as s:
+        print("Adjusting for ambient noise, please be quiet for a moment.")
         r.adjust_for_ambient_noise(s, duration=3)
 
     print('\nSay', wake_word, 'to wake me up. \n')
