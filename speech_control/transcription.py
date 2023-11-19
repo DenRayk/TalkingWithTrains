@@ -4,16 +4,13 @@ model = Model(lang="de")
 
 rec = KaldiRecognizer(model, 16000)
 rec.SetGrammar(
-
-    '["modellbahn", '
+    '["modellbahn",'
     '"bahnhof",'
-    '"zug eins",'
+    '"zug",'
+    '"eins",'
+    '"zwei",'
+    '"drei",'
     '"fahre",'
-    '"zug zwei",'
-    '"zug drei",'
-    '"bahnhof eins",'
-    '"bahnhof zwei",'
-    '"bahnhof drei",'
     '"nach",'
     '"[unk]"]')
 

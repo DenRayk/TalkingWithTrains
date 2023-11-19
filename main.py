@@ -9,6 +9,7 @@ listening_for_wake_word = True
 source = sr.Microphone(sample_rate=16000, chunk_size=1024)
 recognizer.dynamic_energy_threshold = True
 
+
 def listen_for_wake_word(audio):
     global listening_for_wake_word
 
