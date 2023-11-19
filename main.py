@@ -3,11 +3,11 @@ from speech_control.transcription import transcribe
 import time
 
 wake_word = 'Bahnhof'
-r = sr.Recognizer()
+recognizer = sr.Recognizer()
 
 listening_for_wake_word = True
-source = sr.Microphone()
-
+source = sr.Microphone(sample_rate=16000, chunk_size=1024)
+recognizer.dynamic_energy_threshold = True
 
 def listen_for_wake_word(audio):
     global listening_for_wake_word
@@ -50,11 +50,11 @@ def callback(recognizer, audio):
 def start_listening():
     with source as s:
         print("Adjusting for ambient noise, please be quiet for a moment.")
-        r.adjust_for_ambient_noise(s, duration=3)
+        recognizer.adjust_for_ambient_noise(s, duration=1)
 
     print('\nSay', wake_word, 'to wake me up. \n')
 
-    r.listen_in_background(source, callback, phrase_time_limit=5)
+    recognizer.listen_in_background(source, callback)
 
     while True:
         time.sleep(1)
