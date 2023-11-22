@@ -37,3 +37,12 @@ Weiter
 Alle fahren
 ....
 """
+
+"""
+Initialer Test:
+System Start/Alle stop
+System Stop
+Fahre ZugX vorwärts
+Fahre ZugX rückwärts
+ZugX fahre Geschwindidkeit y
+"""
