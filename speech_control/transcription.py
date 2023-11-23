@@ -1,35 +1,17 @@
+import json
 from vosk import Model, KaldiRecognizer
 
 model = Model(lang="de")
-
 rec = KaldiRecognizer(model, 16000)
-rec.SetGrammar(
-    '["modellbahn",'
-    '"bahnhof",'
-    '"zug",'
-    '"eins",'
-    '"zwei",'
-    '"drei",'
-    '"vier",'
-    '"fahre",'
-    '"nach",'
-    '"vorwärts",'
-    '"rückwärts",'
-    '"geradeaus",'
-    '"stop",'
-    '"halte",'
-    '"an",'
-    '"geschwindigkeit",'
-    '"mit",'
-    '"zu",'
-    '"gleis",'
-    '"abschnitt",'
-    '"weiche",'
-    '"stelle",'
-    '"toggle",'
-    '"alle",'
-    '"weiter",'
-    '"[unk]"]')
+
+
+def load_grammar(file_path):
+    with open(file_path, 'r') as file:
+        return json.load(file)
+
+
+grammar = load_grammar("speech_control/grammar.json")
+rec.SetGrammar(json.dumps(grammar))
 
 
 def transcribe(audio, file_path):
