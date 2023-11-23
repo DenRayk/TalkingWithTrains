@@ -2,7 +2,7 @@ import speech_recognition as sr
 from speech_control.transcription import transcribe
 import time
 
-wake_word = 'Bahnhof'
+wake_word = 'Modellbahn'
 recognizer = sr.Recognizer()
 
 listening_for_wake_word = True
