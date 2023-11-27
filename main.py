@@ -1,6 +1,7 @@
 import speech_recognition as sr
 from speech_control.transcription import transcribe
 import time
+import services.http_client as http_client
 
 wake_word = 'Modellbahn'
 recognizer = sr.Recognizer()
@@ -62,4 +63,6 @@ def start_listening():
 
 
 if __name__ == '__main__':
+    ipaddress = "http://127.0.0.1:8042"
+    http_client.HttpClient(ipaddress)
     start_listening()
