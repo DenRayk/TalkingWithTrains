@@ -13,7 +13,7 @@ class HttpClient:
             "zug_4": 16390,
         }
 
-        self.functionsCrossrail = {
+        self.functions_crossrail = {
             "Licht": 1,
             "Rauch": 2,
             "Betriebsgeräusche": 3,
@@ -42,6 +42,12 @@ class HttpClient:
             "ALARM 1": 26,
             "ALARM 2": 27,
             "Türen": 28
+        }
+
+        functions_drg = {
+            "Licht": 1,
+            "Rauch": 2,
+            "Laggy Betriebsgeräusche": 3
         }
 
         self.get_hash()
@@ -75,14 +81,15 @@ class HttpClient:
             print(f"Fehler bei der Anfrage: {response.status_code}")
             return None
 
-    def set_direction(self, zug, direction):
+    def set_train_direction(self, zug, direction):
         response = self.send_post_request(f"lok/{self.trains[zug]}/direction", data={"direction": direction})
         print(f"Zug {zug} fährt {direction}")
 
-    def set_speed(self, zug, speed):
+    def set_train_speed(self, zug, speed):
         response = self.send_post_request(f"lok/{self.trains[zug]}/speed", data={"speed": speed})
         print(f"Zug {zug} fährt mit {speed / 10}")
 
-    def set_function(self, zug, function):
-        response = self.send_post_request(f"lok/{self.trains[zug]}/function/{self.functionsCrossrail[function]}")
+    def set_train_function(self, zug, function):
+        response = self.send_post_request(f"lok/{self.trains[zug]}/function/{self.functions_crossrail[function]}")
         print(f"Zug {zug} {function}")
+
