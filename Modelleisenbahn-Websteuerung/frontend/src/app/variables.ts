@@ -1,1 +1,0 @@
-export const backend_ip = "modelleisenbahn.inf.dh-karlsruhe.de:8042"
