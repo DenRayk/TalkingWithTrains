@@ -1,4 +1,6 @@
 import speech_recognition as sr
+
+from speech_control.activities import extract_activity
 from speech_control.transcription import transcribe
 import time
 import services.http_client as http_client
@@ -33,6 +35,8 @@ def prompt(audio):
             listening_for_wake_word = True
         else:
             print('User: ' + prompt_text)
+            extract_activity(prompt_text)
+
             print('\nSay', wake_word, 'to wake me up. \n')
             listening_for_wake_word = True
 
