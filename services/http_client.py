@@ -93,3 +93,12 @@ class HttpClient:
         response = self.send_post_request(f"lok/{self.trains[zug]}/function/{self.functions_crossrail[function]}")
         print(f"Zug {zug} {function}")
 
+    def get_train_speed(self, zug):
+        response = self.send_get_request(f"lok/{self.trains[zug]}/speed")
+        print(f"Zug {zug} fährt mit {response['speed'] / 10}")
+        return response
+
+    def get_train_direction(self, zug):
+        response = self.send_get_request(f"lok/{self.trains[zug]}/direction")
+        print(f"Zug {zug} fährt {response['direction']}")
+        return response
