@@ -8,8 +8,8 @@
   "vier",
   "fahre",
   "nach",
-  "vorwärts",
-  "rückwärts",
+  "vorwaerts",
+  "rückwaerts",
   "geradeaus",
   "stop",
   "halte",
@@ -24,5 +24,6 @@
   "toggle",
   "alle",
   "weiter",
+  "system",
   "[unk]"
 ]
