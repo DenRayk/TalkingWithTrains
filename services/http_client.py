@@ -1,104 +1,63 @@
 import requests
+import config
+
+base_url = config.base_url
 
 
-class HttpClient:
-    def __init__(self, base_url):
-        self.base_url = base_url
-        self.hash = None
+def get_hash():
+    response = send_get_request("general/hash")
+    print(f"Hash: {response}")
+    config.x_can_hash = str(response)
 
-        self.trains = {
-            "zug_1": 16391,
-            "zug_2": 16389,
-            "zug_3": 16392,
-            "zug_4": 16390,
-        }
 
-        self.functions_crossrail = {
-            "Licht": 1,
-            "Rauch": 2,
-            "Betriebsgeräusche": 3,
-            "Hupe 1": 4,
-            "Gewicht": 5,
-            "Anfahrgeräusche": 6,
-            "Innenlicht": 7,
-            "Hupe 2": 8,
-            "Innenlicht / Vorne": 9,
-            "Lüftungsgeräusche": 10,
-            "Kück - Sound": 11,
-            "Kompressor": 12,
-            "Licht unten": 13,
-            "Licht unten 2": 14,
-            "Fake Anfahrgeräusche": 15,
-            "Hupe 3": 16,
-            "Hupe 4": 17,
-            "Turtle": 18,
-            "Kleines Licht": 19,
-            "Großes Licht": 20,
-            "Luft ablassen": 21,
-            "Motorgeräusche": 22,
-            "Abkoppelsound 1": 23,
-            "FULL Sound": 24,
-            "Abkoppelsound 2": 25,
-            "ALARM 1": 26,
-            "ALARM 2": 27,
-            "Türen": 28
-        }
+def send_get_request(endpoint, params=None):
+    url = f"{base_url}/{endpoint}"
 
-        functions_drg = {
-            "Licht": 1,
-            "Rauch": 2,
-            "Laggy Betriebsgeräusche": 3
-        }
+    if hash is None:
+        response = requests.get(url, params=params)
+    else:
+        response = requests.get(url, params=params, headers={"x-can-hash": config.x_can_hash})
 
-        self.get_hash()
+    if response.status_code in [200, 201, 202, 203, 204]:
+        return response.json()
+    else:
+        print(f"Fehler bei der Anfrage: {response.status_code}")
+        return None
 
-    def get_hash(self):
-        response = self.send_get_request("general/hash")
-        print(f"Hash: {response}")
-        self.hash = response
 
-    def send_get_request(self, endpoint, params=None):
-        url = f"{self.base_url}/{endpoint}"
+def send_post_request(endpoint, data=None):
+    url = f"{base_url}/{endpoint}"
+    response = requests.post(url, json=data, headers={"x-can-hash": config.x_can_hash})
 
-        if hash is None:
-            response = requests.get(url, params=params)
-        else:
-            response = requests.get(url, params=params, headers={"x-can-hash": self.hash})
+    if response.status_code in [200, 201, 202, 203, 204]:
+        return response.json()
+    else:
+        print(f"Fehler bei der Anfrage: {response.status_code}")
+        return None
 
-        if response.status_code == 200:
-            return response.json()
-        else:
-            print(f"Fehler bei der Anfrage: {response.status_code}")
-            return None
 
-    def send_post_request(self, endpoint, data=None):
-        url = f"{self.base_url}/{endpoint}"
-        response = requests.post(url, json=data, headers={"x-can-hash": self.hash})
+def set_train_direction(zug, direction):
+    response = send_post_request(f"lok/{config.trains[zug]}/direction", data={"direction": direction})
+    print(f"Zug {zug} fährt {direction}")
 
-        if response.status_code == 201:
-            return response.json()
-        else:
-            print(f"Fehler bei der Anfrage: {response.status_code}")
-            return None
 
-    def set_train_direction(self, zug, direction):
-        response = self.send_post_request(f"lok/{self.trains[zug]}/direction", data={"direction": direction})
-        print(f"Zug {zug} fährt {direction}")
+def set_train_speed(zug, speed):
+    response = send_post_request(f"lok/{config.trains[zug]}/speed", data={"speed": speed})
+    print(f"Zug {zug} fährt mit {speed / 10}")
 
-    def set_train_speed(self, zug, speed):
-        response = self.send_post_request(f"lok/{self.trains[zug]}/speed", data={"speed": speed})
-        print(f"Zug {zug} fährt mit {speed / 10}")
 
-    def set_train_function(self, zug, function):
-        response = self.send_post_request(f"lok/{self.trains[zug]}/function/{self.functions_crossrail[function]}")
-        print(f"Zug {zug} {function}")
+def set_train_function(zug, function):
+    response = send_post_request(f"lok/{config.trains[zug]}/function/{config.functions_crossrail[function]}")
+    print(f"Zug {zug} {function}")
 
-    def get_train_speed(self, zug):
-        response = self.send_get_request(f"lok/{self.trains[zug]}/speed")
-        print(f"Zug {zug} fährt mit {response['speed'] / 10}")
-        return response
 
-    def get_train_direction(self, zug):
-        response = self.send_get_request(f"lok/{self.trains[zug]}/direction")
-        print(f"Zug {zug} fährt {response['direction']}")
-        return response
+def get_train_speed(zug):
+    response = send_get_request(f"lok/{config.trains[zug]}/speed")
+    print(f"Zug {zug} fährt mit {response['speed'] / 10}")
+    return response
+
+
+def get_train_direction(zug):
+    response = send_get_request(f"lok/{config.trains[zug]}/direction")
+    print(f"Zug {zug} fährt {response['direction']}")
+    return response
