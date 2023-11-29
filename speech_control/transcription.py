@@ -6,12 +6,12 @@ rec = KaldiRecognizer(model, 16000)
 
 
 def load_grammar(file_path):
-    with open(file_path, 'r') as file:
+    with open(file_path, 'rb') as file:
         return json.load(file)
 
 
 grammar = load_grammar("speech_control/grammar.json")
-rec.SetGrammar(json.dumps(grammar))
+rec.SetGrammar(json.dumps(grammar, ensure_ascii=False))
 
 
 def transcribe(audio, file_path):
