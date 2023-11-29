@@ -1,11 +1,6 @@
-# TODO: implement activities for the trains
 import json
-
-zug_1: 16391
-zug_2: 16389
-zug_3: 16392
-zug_4: 16390
-
+import config
+import services.http_client as http_client
 
 """
 Initialer Test:
@@ -21,16 +16,40 @@ def extract_activity(prompt_text):
     prompt_text_json = json.loads(prompt_text)
 
     match prompt_text_json["text"]:
+        # System Befehle bisher nicht in der API
         case "system start":
             drive_all()
         case "system stop":
             stop_all()
+
+        # Züge Richtung
         case "fahre zug eins geradeaus":
-            drive_forward(zug_1)
+            http_client.set_train_direction("zug_1", "Forwards")
         case "fahre zug eins zurück":
-            drive_backwards(zug_1)
+            http_client.set_train_direction("zug_1", "Backwards")
+        case "fahre zug zwei geradeaus":
+            http_client.set_train_direction("zug_2", "Forwards")
+        case "fahre zug zwei zurück":
+            http_client.set_train_direction("zug_2", "Backwards")
+        case "fahre zug drei geradeaus":
+            http_client.set_train_direction("zug_3", "Forwards")
+        case "fahre zug drei zurück":
+            http_client.set_train_direction("zug_3", "Backwards")
+        case "fahre zug vier geradeaus":
+            http_client.set_train_direction("zug_4", "Forwards")
+        case "fahre zug vier zurück":
+            http_client.set_train_direction("zug_4", "Backwards")
+
+        # Züge anhalten
         case "zug eins stop":
-            drive_stop(zug_1)
+            http_client.set_train_speed("zug_1", 0)
+        case "zug zwei stop":
+            http_client.set_train_speed("zug_2", 0)
+        case "zug drei stop":
+            http_client.set_train_speed("zug_3", 0)
+        case "zug vier stop":
+            http_client.set_train_speed("zug_4", 0)
+
         case _:
             print('Befehl nicht gefunden')
 
@@ -41,19 +60,6 @@ def drive_all():
 
 def stop_all():
     print('stopping all')
-
-
-def drive_forward(train_id):
-    print(train_id, 'driving forward')
-
-
-def drive_backwards(train_id):
-    print(train_id, ' driving backwards')
-
-
-def drive_stop(train_id):
-    print(train_id, ' Stop')
-
 
 
 """
