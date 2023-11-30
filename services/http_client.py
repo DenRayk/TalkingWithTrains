@@ -13,26 +13,35 @@ def get_hash():
 def send_get_request(endpoint, params=None):
     url = f"{base_url}/{endpoint}"
 
-    if hash is None:
-        response = requests.get(url, params=params)
-    else:
-        response = requests.get(url, params=params, headers={"x-can-hash": config.x_can_hash})
+    try:
+        if hash is None:
+            response = requests.get(url, params=params)
+        else:
+            response = requests.get(url, params=params, headers={"x-can-hash": config.x_can_hash})
 
-    if response.status_code in [200, 201, 202, 203, 204]:
-        return response.json()
-    else:
-        print(f"Fehler bei der Anfrage: {response.status_code}")
+        if response.status_code in [200, 201, 202, 203, 204]:
+            return response.json()
+        else:
+            print(f"Fehler bei der Anfrage: {response.status_code}")
+            return None
+    except requests.exceptions.ConnectionError:
+        print("Connection to server failed")
         return None
 
 
 def send_post_request(endpoint, data=None):
     url = f"{base_url}/{endpoint}"
-    response = requests.post(url, json=data, headers={"x-can-hash": config.x_can_hash})
 
-    if response.status_code in [200, 201, 202, 203, 204]:
-        return response.json()
-    else:
-        print(f"Fehler bei der Anfrage: {response.status_code}")
+    try:
+        response = requests.post(url, json=data, headers={"x-can-hash": config.x_can_hash})
+
+        if response.status_code in [200, 201, 202, 203, 204]:
+            return response.json()
+        else:
+            print(f"Fehler bei der Anfrage: {response.status_code}")
+            return None
+    except requests.exceptions.ConnectionError:
+        print("Connection to server failed")
         return None
 
 
