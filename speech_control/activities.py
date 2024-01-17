@@ -1,66 +1,55 @@
 import json
-import config
+
+from fuzzywuzzy import process
 import services.http_client as http_client
 
-"""
-Initialer Test:
-System Start/Alle stop
-System Stop
-Fahre ZugX vorwärts
-Fahre ZugX rückwärts
-ZugX fahre Geschwindidkeit y
-"""
+commands = {
+    "system start": lambda: http_client.drive_all(),
+    "system stop": lambda: http_client.stop_all(),
+    "fahre zug eins geradeaus": lambda: http_client.set_train_direction_forwards("zug_1"),
+    "fahre zug eins vorwärts": lambda: http_client.set_train_direction_forwards("zug_1"),
+    "zug eins fahre geradeaus": lambda: http_client.set_train_direction_forwards("zug_1"),
+    "zug eins fahre vorwärts": lambda: http_client.set_train_direction_forwards("zug_1"),
+    "fahre zug eins rückwärts": lambda: http_client.set_train_direction_backwards("zug_1"),
+    "zug eins fahre rückwärts": lambda: http_client.set_train_direction_backwards("zug_1"),
+    "fahre zug zwei geradeaus": lambda: http_client.set_train_direction_forwards("zug_2"),
+    "fahre zug zwei vorwärts": lambda: http_client.set_train_direction_forwards("zug_2"),
+    "zug zwei fahre geradeaus": lambda: http_client.set_train_direction_forwards("zug_2"),
+    "zug zwei fahre vorwärts": lambda: http_client.set_train_direction_forwards("zug_2"),
+    "fahre zug zwei rückwärts": lambda: http_client.set_train_direction_backwards("zug_2"),
+    "zug zwei fahre rückwärts": lambda: http_client.set_train_direction_backwards("zug_2"),
+    "fahre zug drei geradeaus": lambda: http_client.set_train_direction_forwards("zug_3"),
+    "fahre zug drei vorwärts": lambda: http_client.set_train_direction_forwards("zug_3"),
+    "zug drei fahre geradeaus": lambda: http_client.set_train_direction_forwards("zug_3"),
+    "zug drei fahre vorwärts": lambda: http_client.set_train_direction_forwards("zug_3"),
+    "fahre zug drei rückwärts": lambda: http_client.set_train_direction_backwards("zug_3"),
+    "zug drei fahre rückwärts": lambda: http_client.set_train_direction_backwards("zug_3"),
+    "fahre zug vier geradeaus": lambda: http_client.set_train_direction_forwards("zug_4"),
+    "fahre zug vier vorwärts": lambda: http_client.set_train_direction_forwards("zug_4"),
+    "zug vier fahre geradeaus": lambda: http_client.set_train_direction_forwards("zug_4"),
+    "zug vier fahre vorwärts": lambda: http_client.set_train_direction_forwards("zug_4"),
+    "fahre zug vier rückwärts": lambda: http_client.set_train_direction_backwards("zug_4"),
+    "zug vier fahre rückwärts": lambda: http_client.set_train_direction_backwards("zug_4"),
+    "zug eins stop": lambda: http_client.set_train_speed("zug_1", 0),
+    "zug eins halte an": lambda: http_client.set_train_speed("zug_1", 0),
+    "zug zwei stop": lambda: http_client.set_train_speed("zug_2", 0),
+    "zug zwei halte an": lambda: http_client.set_train_speed("zug_2", 0),
+    "zug drei stop": lambda: http_client.set_train_speed("zug_3", 0),
+    "zug drei halte an": lambda: http_client.set_train_speed("zug_3", 0),
+    "zug vier stop": lambda: http_client.set_train_speed("zug_4", 0),
+    "zug vier halte an": lambda: http_client.set_train_speed("zug_4", 0),
+}
 
 
 def extract_activity(prompt_text):
-    prompt_text_json = json.loads(prompt_text)
+    command = json.loads(prompt_text)["text"]
 
-    match prompt_text_json["text"]:
+    best_match, score = process.extractOne(command, commands.keys())
 
-        # System Befehle bisher nicht in der API
-        case "system start":
-            drive_all()
-        case "system stop":
-            stop_all()
-
-        # Züge Richtung
-        case "fahre zug eins geradeaus" | "fahre zug eins vorwärts" | "zug eins fahre geradeaus" | "zug eins fahre vorwärts":
-            http_client.set_train_direction("zug_1", "Forwards")
-        case "fahre zug eins rückwärts" | "zug eins fahre rückwärts":
-            http_client.set_train_direction("zug_1", "Backwards")
-        case "fahre zug zwei geradeaus" | "fahre zug zwei vorwärts" | "zug zwei fahre geradeaus" | "zug zwei fahre vorwärts":
-            http_client.set_train_direction("zug_2", "Forwards")
-        case "fahre zug zwei rückwärts" | "zug zwei fahre rückwärts":
-            http_client.set_train_direction("zug_2", "Backwards")
-        case "fahre zug drei geradeaus" | "fahre zug drei vorwärts" | "zug drei fahre geradeaus" | "zug drei fahre vorwärts":
-            http_client.set_train_direction("zug_3", "Forwards")
-        case "fahre zug drei rückwärts" | "zug drei fahre rückwärts":
-            http_client.set_train_direction("zug_3", "Backwards")
-        case "fahre zug vier geradeaus" | "fahre zug vier vorwärts" | "zug vier fahre geradeaus" | "zug vier fahre vorwärts":
-            http_client.set_train_direction("zug_4", "Forwards")
-        case "fahre zug vier rückwärts" | "zug vier fahre rückwärts":
-            http_client.set_train_direction("zug_4", "Backwards")
-
-        # Züge anhalten
-        case "zug eins stop" | "zug eins halte an":
-            http_client.set_train_speed("zug_1", 0)
-        case "zug zwei stop" | "zug zwei halte an":
-            http_client.set_train_speed("zug_2", 0)
-        case "zug drei stop" | "zug drei halte an":
-            http_client.set_train_speed("zug_3", 0)
-        case "zug vier stop" | "zug vier halte an":
-            http_client.set_train_speed("zug_4", 0)
-
-        case _:
-            print('Befehl nicht gefunden')
-
-
-def drive_all():
-    print('driving all')
-
-
-def stop_all():
-    print('stopping all')
+    if score > 70:
+        commands[command]()
+    else:
+        print('Befehl nicht gefunden')
 
 
 """
