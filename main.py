@@ -1,4 +1,5 @@
 import speech_recognition as sr
+import sounddevice  # do not remove this line (it is used to fix an error with alsa)
 
 from speech_control.activities import extract_activity
 from speech_control.transcription import transcribe
