@@ -17,7 +17,7 @@ recognizer.dynamic_energy_threshold = False
 def listen_for_wake_word(audio):
     global listening_for_wake_word
 
-    text_input = transcribe(audio, "wake_word.wav")
+    text_input = transcribe(audio)
     print(text_input)
 
     if wake_word.lower() in text_input.lower().strip():
@@ -29,7 +29,7 @@ def prompt(audio):
     global listening_for_wake_word
 
     try:
-        prompt_text = transcribe(audio, "prompt.wav")
+        prompt_text = transcribe(audio)
 
         if len(prompt_text.strip()) == 0:
             print("Empty prompt. Please speak again.")

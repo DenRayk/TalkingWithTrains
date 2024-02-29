@@ -21,3 +21,9 @@ def transcribe(audio, file_path):
     rec.AcceptWaveform(audio.get_wav_data())
     result = rec.Result()
     return result
+
+
+def transcribe(audio):
+    rec.AcceptWaveform(audio.get_wav_data())
+    result = rec.Result()
+    return result
