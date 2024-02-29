@@ -60,11 +60,13 @@ def set_train_direction_backwards(zug):
 def set_train_speed(zug, speed):
     response = send_post_request(f"lok/{config.trains[zug]}/speed", data={"speed": speed})
     print(f"Zug {zug} fährt mit {speed / 10}")
+    return response
 
 
 def set_train_function(zug, function):
     response = send_post_request(f"lok/{config.trains[zug]}/function/{config.functions_crossrail[function]}")
     print(f"Zug {zug} {function}")
+    return response
 
 
 def get_train_speed(zug):

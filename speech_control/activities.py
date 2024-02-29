@@ -45,22 +45,26 @@ commands = {
     # Zug 1
     "zug eins stop": lambda: http_client.set_train_speed("zug_1", 0),
     "zug eins halte an": lambda: http_client.set_train_speed("zug_1", 0),
-    "zug eins fahre los": lambda: http_client.set_train_speed("zug_1", 50),
+    "zug eins fahre los": lambda: http_client.set_train_speed("zug_1", 500),
+    "zug eins fahre so schnell wie möglich": lambda: http_client.set_train_speed("zug_1", 1000),
 
     # Zug 2
     "zug zwei stop": lambda: http_client.set_train_speed("zug_2", 0),
     "zug zwei halte an": lambda: http_client.set_train_speed("zug_2", 0),
-    "zug zwei fahre los": lambda: http_client.set_train_speed("zug_2", 50),
+    "zug zwei fahre los": lambda: http_client.set_train_speed("zug_2", 500),
+    "zug zwei fahre so schnell wie möglich": lambda: http_client.set_train_speed("zug_2", 1000),
 
     # Zug 3
     "zug drei stop": lambda: http_client.set_train_speed("zug_3", 0),
     "zug drei halte an": lambda: http_client.set_train_speed("zug_3", 0),
-    "zug drei fahre los": lambda: http_client.set_train_speed("zug_3", 50),
+    "zug drei fahre los": lambda: http_client.set_train_speed("zug_3", 500),
+    "zug drei fahre so schnell wie möglich": lambda: http_client.set_train_speed("zug_3", 1000),
 
     # Zug 4
     "zug vier stop": lambda: http_client.set_train_speed("zug_4", 0),
     "zug vier halte an": lambda: http_client.set_train_speed("zug_4", 0),
     "zug vier fahre los": lambda: http_client.set_train_speed("zug_4", 50),
+    "zug vier fahre so schnell wie möglich": lambda: http_client.set_train_speed("zug_4", 1000),
 }
 
 
