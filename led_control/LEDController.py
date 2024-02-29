@@ -1,7 +1,5 @@
 from sys import platform
-
-def is_platform_linux():
-    return platform == "linux" or platform == "linux2"
+from led_control import ColorStatus
 
 try:
     from rpi_ws281x import PixelStrip, Color
@@ -17,37 +15,47 @@ try:
     strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     strip.begin()
 
-
-    def set_color(r, g, b):
-        for x in range(LED_COUNT):
-            strip.setPixelColor(x, Color(r, g, b))
-        strip.show()
-
-
-    def voice_control_inactive():
-        set_color(0, 0, 0)  # LEDs off
-
-    def voice_control_active():
-        set_color(255, 255, 255)  # LEDs white
-
-    def activation_word_detected():
-        set_color(0, 0, 255)  # LEDs blue
-
-    def processing_command():
-        set_color(0, 255, 255)  # LEDs cyan
-
-    def command_executed():
-        set_color(0, 255, 0)  # LEDs green
-
-    def command_not_recognized():
-        set_color(255, 0, 0)  # LEDs red
-
-    def connection_failed():
-        set_color(255, 255, 0)  # LEDs yellow
-
-    def no_microphone_detected():
-        set_color(255, 165, 0)  # LEDs orange
-
 except ImportError:
     pass
 
+def set_led_color(r, g, b):
+    if not platform.startswith("linux"):
+        return
+
+    try:
+        for x in range(LED_COUNT):
+            strip.setPixelColor(x, Color(r, g, b))
+        strip.show()
+    except:
+        pass
+
+def voice_control_inactive():
+    set_led_color(*ColorStatus.OFF)
+    print("Color set to off")
+
+def voice_control_active():
+    set_led_color(*ColorStatus.ACTIVE)
+    print("Color set to White")
+
+def activation_word_detected():
+    set_led_color(*ColorStatus.DETECTED)
+    print("Color set to Blue")
+
+def processing_command():
+    set_led_color(*ColorStatus.PROCESSING)
+    print("Color set to Cyan")
+
+def command_executed():
+    set_led_color(*ColorStatus.EXECUTED)
+    print("Color set to Green")
+
+def command_not_recognized():
+    set_led_color(*ColorStatus.NOT_RECOGNIZED)
+    print("Color set to Red")
+
+def connection_failed():
+    set_led_color(*ColorStatus.CONNECTION_FAILED)
+    print("Color set to Yellow")
+def no_microphone_detected():
+    set_led_color(*ColorStatus.NO_MICROPHONE)
+    print("Color set to Orange")
