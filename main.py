@@ -6,20 +6,11 @@ import time
 import services.http_client as http_client
 
 wake_word = 'Modellbahn'
+source = sr.Microphone(sample_rate=16000, chunk_size=1024)
 recognizer = sr.Recognizer()
 
 listening_for_wake_word = True
 recognizer.dynamic_energy_threshold = False
-
-
-def select_microphone():
-    print("Selecting microphone...")
-    microphones = sr.Microphone.list_microphone_names()
-    for i, microphone in enumerate(microphones):
-        print(f"{i}. {microphone}")
-
-    microphone_index = int(input("Enter the index of the microphone you want to use: "))
-    return sr.Microphone(device_index=microphone_index, sample_rate=16000, chunk_size=1024)
 
 
 def listen_for_wake_word(audio):
@@ -65,7 +56,6 @@ def callback(recognizer, audio):
 
 
 def start_listening():
-    source = select_microphone()
     with source as s:
         print("Adjusting for ambient noise, please be quiet for a moment.")
         recognizer.adjust_for_ambient_noise(s, duration=2)
