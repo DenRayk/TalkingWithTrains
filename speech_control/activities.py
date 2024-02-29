@@ -75,5 +75,7 @@ def extract_activity(prompt_text):
 
     if score > 70:
         commands[command]()
+        return True
     else:
         print('Befehl nicht gefunden')
+        return False

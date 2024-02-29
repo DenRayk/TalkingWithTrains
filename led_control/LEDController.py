@@ -1,6 +1,6 @@
 from sys import platform
 
-def is_linux():
+def is_platform_linux():
     return platform == "linux" or platform == "linux2"
 
 try:
@@ -27,30 +27,23 @@ try:
     def voice_control_inactive():
         set_color(0, 0, 0)  # LEDs off
 
-
     def voice_control_active():
         set_color(255, 255, 255)  # LEDs white
-
 
     def activation_word_detected():
         set_color(0, 0, 255)  # LEDs blue
 
-
     def processing_command():
         set_color(0, 255, 255)  # LEDs cyan
-
 
     def command_executed():
         set_color(0, 255, 0)  # LEDs green
 
-
     def command_not_recognized():
         set_color(255, 0, 0)  # LEDs red
 
-
     def connection_failed():
         set_color(255, 255, 0)  # LEDs yellow
-
 
     def no_microphone_detected():
         set_color(255, 165, 0)  # LEDs orange
