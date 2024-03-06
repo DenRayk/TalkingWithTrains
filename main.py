@@ -15,6 +15,13 @@ listening_for_wake_word = True
 recognizer.dynamic_energy_threshold = False
 
 
+def activate_voice_control():
+    global listening_for_wake_word
+    print('\nSay', wake_word, 'to wake me up. \n')
+    LEDController.voice_control_active()
+    listening_for_wake_word = True
+
+
 def listen_for_wake_word(audio):
     global listening_for_wake_word
 
@@ -24,7 +31,6 @@ def listen_for_wake_word(audio):
     if wake_word.lower() in text_input.lower().strip():
         print("Wake word detected. Please speak your prompt to TalkingWithTrains.")
         LEDController.activation_word_detected()
-
         listening_for_wake_word = False
 
 
@@ -37,7 +43,6 @@ def prompt(audio):
         if len(prompt_text.strip()) == 0:
             print("Empty prompt. Please speak again.")
             LEDController.command_not_recognized()
-
             listening_for_wake_word = True
         else:
             print('User: ' + prompt_text)
@@ -46,15 +51,13 @@ def prompt(audio):
             else:
                 LEDController.command_not_recognized()
 
-            print('\nSay', wake_word, 'to wake me up. \n')
-            listening_for_wake_word = True
+            activate_voice_control()
 
     except Exception as e:
         print("Prompt error: ", e)
         LEDController.command_not_recognized()
 
-        print('\nSay', wake_word, 'to wake me up. \n')
-        listening_for_wake_word = True
+        activate_voice_control()
 
 
 def callback(recognizer, audio):
@@ -71,8 +74,7 @@ def start_listening():
         print("Adjusting for ambient noise, please be quiet for a moment.")
         recognizer.adjust_for_ambient_noise(s, duration=2)
 
-    print('\nSay', wake_word, 'to wake me up. \n')
-    LEDController.voice_control_active()
+    activate_voice_control()
 
     recognizer.listen_in_background(source, callback)
 
