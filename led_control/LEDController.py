@@ -1,5 +1,8 @@
+import threading
 from sys import platform
 from led_control import ColorStatus
+
+timer = None
 
 try:
     from rpi_ws281x import PixelStrip, Color
@@ -21,7 +24,7 @@ except Exception as e:
 
 def set_led_color(r, g, b):
     if not platform.startswith("linux"):
-        return
+        return False
 
     try:
         for x in range(LED_COUNT):
@@ -29,35 +32,40 @@ def set_led_color(r, g, b):
         strip.show()
     except Exception as e:
         print("Error setting LED color: ", e)
+        return False
     return True
+
 
 def voice_control_inactive():
     if set_led_color(*ColorStatus.OFF):
         print("Color set to off")
 
+
 def voice_control_active():
-    if set_led_color(*ColorStatus.ACTIVE):
-        print("Color set to White")
+    global timer
+    timer = threading.Timer(5, lambda: set_led_color(*ColorStatus.ACTIVE) and print("Color set to White"))
+    timer.start()
+
 
 def activation_word_detected():
     if set_led_color(*ColorStatus.DETECTED):
         print("Color set to Blue")
 
-def processing_command():
-    if set_led_color(*ColorStatus.PROCESSING):
-        print("Color set to Cyan")
 
 def command_executed():
     if set_led_color(*ColorStatus.EXECUTED):
         print("Color set to Green")
 
+
 def command_not_recognized():
     if set_led_color(*ColorStatus.NOT_RECOGNIZED):
         print("Color set to Red")
 
+
 def connection_failed():
     if set_led_color(*ColorStatus.CONNECTION_FAILED):
         print("Color set to Yellow")
+
 
 def no_microphone_detected():
     if set_led_color(*ColorStatus.NO_MICROPHONE):
