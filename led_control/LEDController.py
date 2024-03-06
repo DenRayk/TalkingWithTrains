@@ -36,37 +36,51 @@ def set_led_color(r, g, b):
     return True
 
 
+def cancel_timer():
+    global timer
+    if timer is not None and timer.is_alive():
+        timer.cancel()
+        print("Timer cancelled")
+
+
 def voice_control_inactive():
+    cancel_timer()
     if set_led_color(*ColorStatus.OFF):
         print("Color set to off")
 
 
 def voice_control_active():
     global timer
+    cancel_timer()
     timer = threading.Timer(5, lambda: set_led_color(*ColorStatus.ACTIVE) and print("Color set to White"))
     timer.start()
 
 
 def activation_word_detected():
+    cancel_timer()
     if set_led_color(*ColorStatus.DETECTED):
         print("Color set to Blue")
 
 
 def command_executed():
+    cancel_timer()
     if set_led_color(*ColorStatus.EXECUTED):
         print("Color set to Green")
 
 
 def command_not_recognized():
+    cancel_timer()
     if set_led_color(*ColorStatus.NOT_RECOGNIZED):
         print("Color set to Red")
 
 
 def connection_failed():
+    cancel_timer()
     if set_led_color(*ColorStatus.CONNECTION_FAILED):
         print("Color set to Yellow")
 
 
 def no_microphone_detected():
+    cancel_timer()
     if set_led_color(*ColorStatus.NO_MICROPHONE):
         print("Color set to Orange")
