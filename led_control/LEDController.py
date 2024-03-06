@@ -15,8 +15,9 @@ try:
     strip = PixelStrip(LED_COUNT, LED_PIN, LED_FREQ_HZ, LED_DMA, LED_INVERT, LED_BRIGHTNESS, LED_CHANNEL)
     strip.begin()
 
-except ImportError:
-    pass
+except Exception as e:
+    print("Error initializing LED strip: ", e)
+
 
 def set_led_color(r, g, b):
     if not platform.startswith("linux"):
@@ -26,36 +27,38 @@ def set_led_color(r, g, b):
         for x in range(LED_COUNT):
             strip.setPixelColor(x, Color(r, g, b))
         strip.show()
-    except:
-        pass
+    except Exception as e:
+        print("Error setting LED color: ", e)
+    return True
 
 def voice_control_inactive():
-    set_led_color(*ColorStatus.OFF)
-    print("Color set to off")
+    if set_led_color(*ColorStatus.OFF):
+        print("Color set to off")
 
 def voice_control_active():
-    set_led_color(*ColorStatus.ACTIVE)
-    print("Color set to White")
+    if set_led_color(*ColorStatus.ACTIVE):
+        print("Color set to White")
 
 def activation_word_detected():
-    set_led_color(*ColorStatus.DETECTED)
-    print("Color set to Blue")
+    if set_led_color(*ColorStatus.DETECTED):
+        print("Color set to Blue")
 
 def processing_command():
-    set_led_color(*ColorStatus.PROCESSING)
-    print("Color set to Cyan")
+    if set_led_color(*ColorStatus.PROCESSING):
+        print("Color set to Cyan")
 
 def command_executed():
-    set_led_color(*ColorStatus.EXECUTED)
-    print("Color set to Green")
+    if set_led_color(*ColorStatus.EXECUTED):
+        print("Color set to Green")
 
 def command_not_recognized():
-    set_led_color(*ColorStatus.NOT_RECOGNIZED)
-    print("Color set to Red")
+    if set_led_color(*ColorStatus.NOT_RECOGNIZED):
+        print("Color set to Red")
 
 def connection_failed():
-    set_led_color(*ColorStatus.CONNECTION_FAILED)
-    print("Color set to Yellow")
+    if set_led_color(*ColorStatus.CONNECTION_FAILED):
+        print("Color set to Yellow")
+
 def no_microphone_detected():
-    set_led_color(*ColorStatus.NO_MICROPHONE)
-    print("Color set to Orange")
+    if set_led_color(*ColorStatus.NO_MICROPHONE):
+        print("Color set to Orange")
