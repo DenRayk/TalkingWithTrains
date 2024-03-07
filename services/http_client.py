@@ -45,15 +45,9 @@ def send_post_request(endpoint, data=None):
         return None
 
 
-def set_train_direction_forwards(zug):
-    response = send_post_request(f"lok/{config.trains[zug]}/direction", data={"direction": "Forwards"})
-    print(f"Zug {zug} fährt Vorwärts")
-    return response
-
-
-def set_train_direction_backwards(zug):
-    response = send_post_request(f"lok/{config.trains[zug]}/direction", data={"direction": "Backwards"})
-    print(f"Zug {zug} fährt Rückwärts")
+def set_train_direction(zug, direction):
+    response = send_post_request(f"lok/{config.trains[zug]}/direction", data={"direction": direction})
+    print(f"Zug {zug} fährt {direction}")
     return response
 
 
