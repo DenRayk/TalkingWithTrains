@@ -43,6 +43,8 @@ def extract_activity(prompt_text):
     best_match, score = process.extractOne(command, commands.keys())
 
     if score > 70:
+        print(f'User Input: "{command}"\n'
+              f'Execute: "{best_match}" ({score}%)')
         commands[best_match]()
         return True
     else:

@@ -6,8 +6,8 @@ base_url = config.base_url
 
 def get_hash():
     response = send_get_request("general/hash")
-    print(f"Hash: {response}")
-    config.x_can_hash = str(response)
+    print(f"Hash: {response.json()}")
+    config.x_can_hash = str(response.json())
 
 
 def send_get_request(endpoint, params=None):
@@ -20,7 +20,7 @@ def send_get_request(endpoint, params=None):
             response = requests.get(url, params=params, headers={"x-can-hash": config.x_can_hash})
 
         if response.status_code in [200, 201, 202, 203, 204]:
-            return response.json()
+            return response
         else:
             print(f"Fehler bei der Anfrage: {response.status_code}")
             return None
@@ -36,7 +36,7 @@ def send_post_request(endpoint, data=None):
         response = requests.post(url, json=data, headers={"x-can-hash": config.x_can_hash})
 
         if response.status_code in [200, 201, 202, 203, 204]:
-            return response.json()
+            return response
         else:
             print(f"Fehler bei der Anfrage: {response.status_code}")
             return None
@@ -65,13 +65,13 @@ def set_train_function(zug, function):
 
 def get_train_speed(zug):
     response = send_get_request(f"lok/{config.trains[zug]}/speed")
-    print(f"Zug {zug} fährt mit {response['speed'] / 10}")
+    print(f"Zug {zug} fährt mit {response.json()['speed'] / 10}")
     return response
 
 
 def get_train_direction(zug):
     response = send_get_request(f"lok/{config.trains[zug]}/direction")
-    print(f"Zug {zug} fährt {response['direction']}")
+    print(f"Zug {zug} fährt {response.json()['direction']}")
     return response
 
 

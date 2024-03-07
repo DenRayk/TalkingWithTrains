@@ -45,7 +45,6 @@ def prompt(audio):
             LEDController.command_not_recognized()
             listening_for_wake_word = True
         else:
-            print('User: ' + prompt_text)
             if extract_activity(prompt_text):
                 LEDController.command_executed()
             else:
