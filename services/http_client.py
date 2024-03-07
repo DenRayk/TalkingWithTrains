@@ -6,6 +6,8 @@ base_url = config.base_url
 
 def get_hash():
     response = send_get_request("general/hash")
+    if response is None:
+        return
     print(f"Hash: {response.json()}")
     config.x_can_hash = str(response.json())
 

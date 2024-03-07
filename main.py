@@ -26,7 +26,10 @@ def activate_voice_control():
 def listen_for_wake_word(audio):
     global listening_for_wake_word
 
-    text_input = transcribe(audio)
+    if args.wav:
+        text_input = transcribe(audio, "wake_word.wav")
+    else:
+        text_input = transcribe(audio)
     print(text_input)
 
     if wake_word.lower() in text_input.lower().strip():
@@ -39,7 +42,10 @@ def prompt(audio):
     global listening_for_wake_word
 
     try:
-        prompt_text = transcribe(audio)
+        if args.wav:
+            prompt_text = transcribe(audio, "prompt.wav")
+        else:
+            prompt_text = transcribe(audio)
 
         if len(prompt_text.strip()) == 0:
             print("Empty prompt. Please speak again.")
@@ -90,6 +96,7 @@ def start_listening():
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Voice control for TalkingWithTrains')
     parser.add_argument('--energy_threshold', type=int, help='Energy threshold for audio recognition')
+    parser.add_argument('--wav', type=bool, default=False, help='Create wav files for debugging purposes')
     args = parser.parse_args()
 
     http_client.get_hash()

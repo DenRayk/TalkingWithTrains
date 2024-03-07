@@ -14,16 +14,11 @@ grammar = load_grammar("speech_control/grammar.json")
 rec.SetGrammar(json.dumps(grammar, ensure_ascii=False))
 
 
-def transcribe(audio, file_path):
-    with open(file_path, "wb") as f:
-        f.write(audio.get_wav_data())
+def transcribe(audio, file_path=None):
+    if file_path:
+        with open(file_path, "wb") as file:
+            file.write(audio.get_wav_data())
 
-    rec.AcceptWaveform(audio.get_wav_data())
-    result = rec.Result()
-    return result
-
-
-def transcribe(audio):
     rec.AcceptWaveform(audio.get_wav_data())
     result = rec.Result()
     return result
