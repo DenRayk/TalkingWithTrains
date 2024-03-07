@@ -1,3 +1,4 @@
+import argparse
 import speech_recognition as sr
 import sounddevice  # do not remove this line (it is used to fix an error with alsa)
 
@@ -70,8 +71,13 @@ def callback(recognizer, audio):
 
 def start_listening():
     with source as s:
-        print("Adjusting for ambient noise, please be quiet for a moment.")
-        recognizer.adjust_for_ambient_noise(s, duration=2)
+        if args.energy_threshold:
+            recognizer.energy_threshold = args.energy_threshold
+        else:
+            print("Adjusting for ambient noise, please be quiet for a moment.")
+            recognizer.adjust_for_ambient_noise(s, duration=2)
+
+    print("Energy threshold: ", recognizer.energy_threshold)
 
     activate_voice_control()
 
@@ -82,5 +88,9 @@ def start_listening():
 
 
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description='Voice control for TalkingWithTrains')
+    parser.add_argument('--energy_threshold', type=int, help='Energy threshold for audio recognition')
+    args = parser.parse_args()
+
     http_client.get_hash()
     start_listening()
