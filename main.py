@@ -9,12 +9,11 @@ import time
 import services.http_client as http_client
 
 wake_word = 'Modellbahn'
-source = sr.Microphone(sample_rate=16000, chunk_size=1024)
+source = sr.Microphone(sample_rate=48000)
 recognizer = sr.Recognizer()
 
 listening_for_wake_word = True
 recognizer.dynamic_energy_threshold = False
-
 
 def activate_voice_control():
     global listening_for_wake_word
@@ -87,7 +86,7 @@ def start_listening():
 
     activate_voice_control()
 
-    recognizer.listen_in_background(source, callback)
+    recognizer.listen_in_background(source, callback, phrase_time_limit=3)
 
     while True:
         time.sleep(1)

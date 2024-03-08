@@ -4,8 +4,10 @@ from fuzzywuzzy import process
 import services.http_client as http_client
 
 commands = {
-    "system start": http_client.drive_all,
-    "system stop": http_client.stop_all,
+    "system start": lambda :http_client.set_system_mode("Go"),
+    "system stop": lambda :http_client.set_system_mode("Stop"),
+    "system halt": lambda :http_client.set_system_mode("Halt"),
+    "system reset": lambda :http_client.set_system_mode("Reset"),
 }
 
 train_commands = {

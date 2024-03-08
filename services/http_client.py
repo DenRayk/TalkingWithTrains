@@ -85,3 +85,13 @@ def drive_all():
 def stop_all():
     for zug in config.trains:
         set_train_speed(zug, 0)
+
+def set_system_mode(mode):
+    try:
+        url = f"{base_url}/system/status?status={mode}"
+        response = requests.post(url, headers={"x-can-hash": config.x_can_hash})
+        print(f"System mode set to {mode}")
+        return response
+    except requests.exceptions.ConnectionError:
+        print("Connection to server failed")
+        return None

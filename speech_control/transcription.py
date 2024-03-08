@@ -2,7 +2,7 @@ import json
 from vosk import Model, KaldiRecognizer
 
 model = Model(lang="de")
-rec = KaldiRecognizer(model, 16000)
+rec = KaldiRecognizer(model, 48000)
 
 
 def load_grammar(file_path):
