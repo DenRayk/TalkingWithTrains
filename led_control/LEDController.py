@@ -79,8 +79,3 @@ def connection_failed():
     if set_led_color(*ColorStatus.CONNECTION_FAILED):
         print("Color set to Yellow")
 
-
-def no_microphone_detected():
-    cancel_timer()
-    if set_led_color(*ColorStatus.NO_MICROPHONE):
-        print("Color set to Orange")
