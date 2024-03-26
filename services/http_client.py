@@ -59,6 +59,18 @@ def set_train_speed(zug, speed):
     return response
 
 
+def set_switch(switch):
+    response = send_post_request(f"accessory/{config.switches[switch]}")
+    print(f"Weiche {switch} gestellt")
+    return response
+
+
+def set_uncoupling_track(track):
+    response = send_post_request(f"accessory/{config.uncoupling_tracks[track]}")
+    print(f"Entkupplungsgleis {track} aktiviert")
+    return response
+
+
 def set_train_function(zug, function):
     response = send_post_request(f"lok/{config.trains[zug]}/function/{config.functions_crossrail[function]}")
     print(f"Zug {zug} {function}")

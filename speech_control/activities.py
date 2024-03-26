@@ -29,6 +29,48 @@ commands = {
     "reset system": lambda: http_client.set_system_mode("Reset"),
     "setze system zurück": lambda: http_client.set_system_mode("Reset"),
     "zurücksetzen system": lambda: http_client.set_system_mode("Reset"),
+
+    #Decoupling
+    "entkuppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "entkupplung": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "wagen entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "wagen aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "anhänger entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "anhänger aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "güterwagen entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "güterwagen aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "entkuppel den anhänger": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "entkuppel den güterwagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "entkuppel den wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "hänge den anhänger aus": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "hänge den güterwagen aus": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "hänge den wagen aus": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "trenne den anhänger": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "trenne den güterwagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "trenne den wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "anhänger losmachen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "güterwagen losmachen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "wagen losmachen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "kuppel den anhänger ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "kuppel den güterwagen ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "kuppel den wagen ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "kuppel ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "trennung durchführen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "löse den wagen vom Zug": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "löse den wagen von der bahn": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "wagen von zug abkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "löse verbindung zwischen wagen und zug": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+}
+
+custom_switch_commands = {
+    "schalte",
+    "schalten",
+    "wechseln",
+    "wechsel",
+    "stellen",
+    "stelle",
+    "bewegen",
+    "bewege",
 }
 
 increaseTrainSpeed = 200
@@ -226,6 +268,28 @@ train_standard_commands = {
     "fahre so schnell wie möglich": 1000,
 }
 
+switches = {
+    "weiche eins": "weiche_1",
+    "weiche zwei": "weiche_2",
+    "weiche drei": "weiche_3",
+    "weiche vier": "weiche_4",
+    "weiche fünf": "weiche_5",
+    "weiche sechs": "weiche_6",
+    "weiche sieben": "weiche_7",
+    "weiche acht": "weiche_8",
+    "weiche neun": "weiche_9",
+
+    "gleis eins": "weiche_1",
+    "gleis zwei": "weiche_2",
+    "gleis drei": "weiche_3",
+    "gleis vier": "weiche_4",
+    "gleis fünf": "weiche_5",
+    "gleis sechs": "weiche_6",
+    "gleis sieben": "weiche_7",
+    "gleis acht": "weiche_8",
+    "gleis neun": "weiche_9",
+}
+
 trains = {
     "zug eins": "zug_1",
     "zug zwei": "zug_2",
@@ -247,11 +311,16 @@ for train_name, train_id in trains.items():
 
     for action, value in train_custom_speed_commands.items():
         command_name = f"{train_name} {action}"
-        if isinstance(value, int):
-            commands[command_name] = lambda tid=train_id, val=value: http_client.add_train_speed(tid, val)
-            #print(f"{command_name} : {train_id}, {value}")
+        commands[command_name] = lambda tid=train_id, val=value: http_client.add_train_speed(tid, val)
 
-print(f"Command length: {len(commands)}")
+for switch_name, switch_id in switches.items():
+    for action in custom_switch_commands:
+        command_name = f"{action} {switch_name}"
+        commands[command_name] = lambda sid=switch_id: http_client.set_switch(sid)
+        command_name = f"{switch_name} {action}"
+        commands[command_name] = lambda sid=switch_id: http_client.set_switch(sid)
+
+print(f"Total of {len(commands)} commands loaded")
 
 
 def extract_activity(prompt_text):
