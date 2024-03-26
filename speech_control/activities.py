@@ -5,9 +5,29 @@ import services.http_client as http_client
 
 commands = {
     "system start": lambda :http_client.set_system_mode("Go"),
+    "system starten": lambda: http_client.set_system_mode("Go"),
+    "system aktiviert": lambda: http_client.set_system_mode("Go"),
+    "system aktivieren": lambda: http_client.set_system_mode("Go"),
+    "start system": lambda: http_client.set_system_mode("Go"),
+    "starte system": lambda: http_client.set_system_mode("Go"),
+    "aktiviere system": lambda: http_client.set_system_mode("Go"),
+
     "system stop": lambda :http_client.set_system_mode("Stop"),
+    "system stoppen": lambda :http_client.set_system_mode("Stop"),
+    "stop system": lambda: http_client.set_system_mode("Stop"),
+    "stoppe system": lambda: http_client.set_system_mode("Stop"),
+    "beende system": lambda: http_client.set_system_mode("Stop"),
+
     "system halt": lambda :http_client.set_system_mode("Halt"),
+    "system anhalten": lambda: http_client.set_system_mode("Halt"),
+    "halt system": lambda: http_client.set_system_mode("Halt"),
+    "halte system": lambda: http_client.set_system_mode("Halt"),
+
     "system reset": lambda :http_client.set_system_mode("Reset"),
+    "system zurücksetzen": lambda: http_client.set_system_mode("Reset"),
+    "reset system": lambda: http_client.set_system_mode("Reset"),
+    "setze system zurück": lambda: http_client.set_system_mode("Reset"),
+    "zurücksetzen system": lambda: http_client.set_system_mode("Reset"),
 }
 
 train_commands = {
@@ -167,6 +187,8 @@ train_commands = {
 
     "stop": 0,
     "halte an": 0,
+    "anhalten": 0,
+    "start": 500,
     "fahre los": 500,
     "fahre so schnell wie möglich": 1000,
 }
