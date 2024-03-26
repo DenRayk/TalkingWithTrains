@@ -33,6 +33,8 @@ commands = {
     #Decoupling
     "entkuppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
     "entkupplung": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "entkoppel den wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
+    "entkopple wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
     "wagen entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
     "wagen aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
     "anhänger entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
