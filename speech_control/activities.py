@@ -28,6 +28,10 @@ trains = {
     "zug zwei": "zug_2",
     "zug drei": "zug_3",
     "zug vier": "zug_4",
+    "bahn eins": "zug_1",
+    "bahn zwei": "zug_2",
+    "bahn drei": "zug_3",
+    "bahn vier": "zug_4",
 }
 
 for train_name, train_id in trains.items():
