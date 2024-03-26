@@ -4,6 +4,7 @@ from fuzzywuzzy import process
 import services.http_client as http_client
 
 commands = {
+    #System commands
     "system start": lambda :http_client.set_system_mode("Go"),
     "system starten": lambda: http_client.set_system_mode("Go"),
     "system aktiviert": lambda: http_client.set_system_mode("Go"),
@@ -30,7 +31,39 @@ commands = {
     "zurücksetzen system": lambda: http_client.set_system_mode("Reset"),
 }
 
-train_commands = {
+increaseTrainSpeed = 200
+reduceTrainSpeed = -200
+train_custom_speed_commands = {
+    "schneller": increaseTrainSpeed,
+    "fahre schneller": increaseTrainSpeed,
+    "laufe schneller": increaseTrainSpeed,
+    "bewege dich schneller": increaseTrainSpeed,
+    "geschwindigkeit erhöhe": increaseTrainSpeed,
+    "schneller fahren": increaseTrainSpeed,
+    "schneller bewegen": increaseTrainSpeed,
+    "schneller voran": increaseTrainSpeed,
+    "schneller nach vorne": increaseTrainSpeed,
+    "erhöhe geschwindigkeit": increaseTrainSpeed,
+    "beschleunige": increaseTrainSpeed,
+    "tempo erhöhen": increaseTrainSpeed,
+    "erhöhe tempo": increaseTrainSpeed,
+
+    "langsamer": reduceTrainSpeed,
+    "fahre langsamer": reduceTrainSpeed,
+    "laufe langsamer": reduceTrainSpeed,
+    "bewege dich langsamer": reduceTrainSpeed,
+    "geschwindigkeit verringere": reduceTrainSpeed,
+    "langsamer fahren": reduceTrainSpeed,
+    "langsamer bewegen": reduceTrainSpeed,
+    "langsamer voran": reduceTrainSpeed,
+    "langsamer nach vorne": reduceTrainSpeed,
+    "verringere geschwindigkeit": reduceTrainSpeed,
+    "verlangsamen": reduceTrainSpeed,
+    "tempo verringern": reduceTrainSpeed,
+    "verringere tempo": reduceTrainSpeed,
+}
+
+train_standard_commands = {
     #Direction forwards
     "geradeaus": "Forwards",
     "fahre geradeaus": "Forwards",
@@ -205,13 +238,20 @@ trains = {
 }
 
 for train_name, train_id in trains.items():
-    for action, value in train_commands.items():
+    for action, value in train_standard_commands.items():
         command_name = f"{train_name} {action}"
         if isinstance(value, str):
             commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_direction(tid, val)
         else:
             commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_speed(tid, val)
-print(len(commands))
+
+    for action, value in train_custom_speed_commands.items():
+        command_name = f"{train_name} {action}"
+        if isinstance(value, int):
+            commands[command_name] = lambda tid=train_id, val=value: http_client.add_train_speed(tid, val)
+            #print(f"{command_name} : {train_id}, {value}")
+
+print(f"Command length: {len(commands)}")
 
 
 def extract_activity(prompt_text):

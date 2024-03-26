@@ -77,6 +77,11 @@ def get_train_direction(zug):
     return response
 
 
+def add_train_speed(zug, speed):
+    currentSpeed = get_train_speed().json()['speed']
+    set_train_speed(zug, currentSpeed + speed)
+
+
 def drive_all():
     for zug in config.trains:
         set_train_speed(zug, 50)
