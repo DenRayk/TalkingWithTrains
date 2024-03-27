@@ -90,7 +90,7 @@ def get_train_direction(zug):
 
 
 def add_train_speed(zug, speed):
-    currentSpeed = get_train_speed().json()['speed']
+    currentSpeed = get_train_speed(zug).json()['speed']
     set_train_speed(zug, currentSpeed + speed)
 
 
