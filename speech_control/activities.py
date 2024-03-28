@@ -3,9 +3,9 @@ import json
 from fuzzywuzzy import process
 import services.http_client as http_client
 
-import train_commands
-import accessories_commands
-import part_designations
+import speech_control.train_commands as train_commands
+import speech_control.accessories_commands as accessories_commands
+import speech_control.part_designations as part_designations
 
 commands = {
     #System commands
