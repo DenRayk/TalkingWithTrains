@@ -84,10 +84,22 @@ accessories_left_turnouts = {
     "w sechs": "W 6",
 }
 
-accessories_Three_way_turnouts = {
+accessories_three_way_turnouts = {
     #Dreiwegweichen
-    #TODO: Add commands list for three way switches
-    #TODO: Dynamically create commands for three way switches
+    "weiche fünf": "W 5",
+    "weiche eins": "W 1",
+
+    "weiche w fünf": "W 5",
+    "weiche w eins": "W 1",
+
+    "gleis fünf": "W 5",
+    "gleis eins": "W 1",
+
+    "gleis w fünf": "W 5",
+    "gleis w eins": "W 1",
+
+    "w fünf": "W 5",
+    "w eins": "W 1",
 }
 
 accessories_uncoupling_tracks = {

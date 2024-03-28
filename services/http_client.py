@@ -71,6 +71,30 @@ def set_accessory_status(accessory, status):
     return response
 
 
+def set_accessory_three_way_turnouts_status(accessory, direction):
+    actions = {
+        ("W 1", "Links"): [("W 1 DREI LI/MI", False)],
+        ("W 1", "Mitte"): [("W 1 DREI LI/MI", True), ("W 1 DREI RE/MI", True)],
+        ("W 1", "Rechts"): [("W 1 DREI LI/MI", True), ("W 1 DREI RE/MI", False)],
+        ("W 5", "Links"): [("W 5 DREI LI/MI", False)],
+        ("W 5", "Mitte"): [("W 5 DREI LI/MI", True), ("W 5 DREI RE/MI", True)],
+        ("W 5", "Rechts"): [("W 5 DREI LI/MI", True), ("W 5 DREI RE/MI", False)]
+    }
+
+    accessory_actions = actions.get((accessory, direction))
+
+    if not accessory_actions:
+        return None
+
+    responses = []
+    for accessory_action in accessory_actions:
+        accessory_name, position = accessory_action
+        response = send_post_request(f"accessory/{config.accessories[accessory_name]}", data={"position": position})
+        responses.append(response)
+
+    return responses
+
+
 def get_train_speed(zug):
     response = send_get_request(f"lok/{config.trains[zug]}/speed")
     print(f"Zug {zug} fährt mit {response.json()['speed'] / 10}")

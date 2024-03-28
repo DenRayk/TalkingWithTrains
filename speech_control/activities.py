@@ -88,6 +88,13 @@ for accessory_name, accessory_id in part_designations.accessories_uncoupling_tra
         command_name = f"{accessory_name} {action}"
         commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
 
+#Dynamically create commands for accessory three way turnouts
+for accessory_name, accessory_id in part_designations.accessories_three_way_turnouts.items():
+    #Commands for accessories three way turnouts
+    for action, value in accessories_commands.accessories_three_way_turnouts_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_three_way_turnouts_status(aid, val)
+
 #for command in commands.keys():
 #    print(command)
 print(f"Total of {len(commands)} commands loaded")
