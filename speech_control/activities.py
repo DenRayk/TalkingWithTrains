@@ -29,50 +29,6 @@ commands = {
     "reset system": lambda: http_client.set_system_mode("Reset"),
     "setze system zurück": lambda: http_client.set_system_mode("Reset"),
     "zurücksetzen system": lambda: http_client.set_system_mode("Reset"),
-
-    #Decoupling
-    "entkuppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "entkupplung": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "entkoppel den wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "entkopple wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "wagen entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "wagen aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "anhänger entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "anhänger aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "güterwagen entkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "güterwagen aushängen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "entkuppel den anhänger": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "entkuppel den güterwagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "entkuppel den wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "hänge den anhänger aus": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "hänge den güterwagen aus": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "hänge den wagen aus": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "trenne den anhänger": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "trenne den güterwagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "trenne den wagen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "anhänger losmachen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "güterwagen losmachen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "wagen losmachen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "kuppel den anhänger ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "kuppel den güterwagen ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "kuppel den wagen ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "kuppel ab": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "trennung durchführen": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "löse den wagen vom Zug": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "löse den wagen von der bahn": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "wagen von zug abkoppeln": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-    "löse verbindung zwischen wagen und zug": lambda: http_client.set_uncoupling_track("entkupplungsgleis_1"),
-}
-
-custom_switch_commands = {
-    "schalte",
-    "schalten",
-    "wechseln",
-    "wechsel",
-    "stellen",
-    "stelle",
-    "bewegen",
-    "bewege",
 }
 
 increaseTrainSpeed = 200
@@ -270,26 +226,104 @@ train_standard_commands = {
     "fahre so schnell wie möglich": 1000,
 }
 
-switches = {
-    "weiche eins": "weiche_1",
-    "weiche zwei": "weiche_2",
-    "weiche drei": "weiche_3",
-    "weiche vier": "weiche_4",
-    "weiche fünf": "weiche_5",
-    "weiche sechs": "weiche_6",
-    "weiche sieben": "weiche_7",
-    "weiche acht": "weiche_8",
-    "weiche neun": "weiche_9",
 
-    "gleis eins": "weiche_1",
-    "gleis zwei": "weiche_2",
-    "gleis drei": "weiche_3",
-    "gleis vier": "weiche_4",
-    "gleis fünf": "weiche_5",
-    "gleis sechs": "weiche_6",
-    "gleis sieben": "weiche_7",
-    "gleis acht": "weiche_8",
-    "gleis neun": "weiche_9",
+accessories_light_signals = {
+    # lichtsignale
+    "lichtsignal eins": "S 1",
+    "lichtsignal zwei": "S 2",
+    "lichtsignal drei": "S 3",
+    "lichtsignal fünf": "S 5",
+    "lichtsignal sechs": "S 6",
+    "lichtsignal sieben": "S 7",
+    "lichtsignal acht": "S 8",
+    "lichtsignal s eins": "S 1",
+    "lichtsignal s zwei": "S 2",
+    "lichtsignal s drei": "S 3",
+    "lichtsignal s fünf": "S 5",
+    "lichtsignal s sechs": "S 6",
+    "lichtsignal s sieben": "S 7",
+    "lichtsignal s acht": "S 8",
+    "Ampel eins": "S 1",
+    "Ampel zwei": "S 2",
+    "Ampel drei": "S 3",
+    "Ampel fünf": "S 5",
+    "Ampel sechs": "S 6",
+    "Ampel sieben": "S 7",
+    "Ampel acht": "S 8",
+    "Ampel s eins": "S 1",
+    "Ampel s zwei": "S 2",
+    "Ampel s drei": "S 3",
+    "Ampel s fünf": "S 5",
+    "Ampel s sechs": "S 6",
+    "Ampel s sieben": "S 7",
+    "Ampel s acht": "S 8",
+    "s eins": "S 1",
+    "s zwei": "S 2",
+    "s drei": "S 3",
+    "s fünf": "S 5",
+    "s sechs": "S 6",
+    "s sieben": "S 7",
+    "s acht": "S 8",
+}
+
+accessories_normal_switches = {
+    #Normale Weichen
+    "weiche drei": "W 3",
+    "weiche sechs": "W 6",
+    "weiche neun": "W 9",
+    "weiche zehn": "W 10",
+    "weiche zwölf": "W 12",
+    "weiche dreizehn": "W 13",
+    "weiche vierzehn": "W 14",
+
+    "weiche w drei": "W 3",
+    "weiche w sechs": "W 6",
+    "weiche w neun": "W 9",
+    "weiche w zehn": "W 10",
+    "weiche w zwölf": "W 12",
+    "weiche w dreizehn": "W 13",
+    "weiche w vierzehn": "W 14",
+
+    "gleis drei": "W 3",
+    "gleis sechs": "W 6",
+    "gleis neun": "W 9",
+    "gleis zehn": "W 10",
+    "gleis zwölf": "W 12",
+    "gleis dreizehn": "W 13",
+    "gleis vierzehn": "W 14",
+
+    "gleis w drei": "W 3",
+    "gleis w sechs": "W 6",
+    "gleis w neun": "W 9",
+    "gleis w zehn": "W 10",
+    "gleis w zwölf": "W 12",
+    "gleis w dreizehn": "W 13",
+    "gleis w vierzehn": "W 14",
+
+    "w drei": "W 3",
+    "w sechs": "W 6",
+    "w neun": "W 9",
+    "w zehn": "W 10",
+    "w zwölf": "W 12",
+    "w dreizehn": "W 13",
+    "w vierzehn": "W 14",
+}
+
+accessories_triple_switch = {
+    #Dreiwegweichen
+    #TODO: Add commands for three way switches
+}
+
+accessories_uncoupling_tracks = {
+    #Entkupplungsgleise
+    "entkupplungsgleis vier": "W 4",
+    "entkupplungsgleis elf": "W 11",
+
+    "entkupplungsgleis w vier": "W 4",
+    "entkupplungsgleis w elf": "W 11",
+
+    "w vier": "W 4",
+    "w elf": "W 11",
 }
 
 trains = {
@@ -315,12 +349,6 @@ for train_name, train_id in trains.items():
         command_name = f"{train_name} {action}"
         commands[command_name] = lambda tid=train_id, val=value: http_client.add_train_speed(tid, val)
 
-for switch_name, switch_id in switches.items():
-    for action in custom_switch_commands:
-        command_name = f"{action} {switch_name}"
-        commands[command_name] = lambda sid=switch_id: http_client.set_switch(sid)
-        command_name = f"{switch_name} {action}"
-        commands[command_name] = lambda sid=switch_id: http_client.set_switch(sid)
 
 print(f"Total of {len(commands)} commands loaded")
 

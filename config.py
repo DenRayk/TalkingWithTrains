@@ -19,12 +19,12 @@ accessories = {
     "W 1 DREI LI/MI": 12289,
     "W 1 DREI RE/MI": 12288,
     "W 10": 12297,
-    "W 11": 12298,
+    "W 11": 12298,  #Enkopplungsgleis
     "W 12": 12299,
     "W 13": 12300,
     "W 14": 12301,
     "W 3": 12290,
-    "W 4": 12291,
+    "W 4": 12291,   #Enkopplungsgleis
     "W 5 DREI LI/MI": 12292,
     "W 5 DREI RE/MI": 12295,
     "W 6": 12293,
