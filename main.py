@@ -15,6 +15,7 @@ recognizer = sr.Recognizer()
 listening_for_wake_word = True
 recognizer.dynamic_energy_threshold = False
 
+
 def activate_voice_control():
     global listening_for_wake_word
     print('\nSay', wake_word, 'to wake me up. \n')

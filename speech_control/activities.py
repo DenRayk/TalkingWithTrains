@@ -31,9 +31,27 @@ commands = {
     "zurücksetzen system": lambda: http_client.set_system_mode("Reset"),
 }
 
+train_speed_commands = {
+    "stop": 0,
+    "halt": 0,
+    "halte an": 0,
+    "anhalten": 0,
+    "bleib stehen": 0,
+    "start": 500,
+    "beginne": 500,
+    "starte": 500,
+    "fahre": 500,
+    "fahre los": 500,
+    "losfahren": 500,
+    "fahre so schnell wie möglich": 1000,
+    "fahre mit voller geschwindigkeit": 1000,
+    "maximale beschleunigung": 1000,
+    "maximale geschwindigkeit": 1000,
+}
+
 increaseTrainSpeed = 200
 reduceTrainSpeed = -200
-train_custom_speed_commands = {
+train_add_speed_commands = {
     "schneller": increaseTrainSpeed,
     "fahre schneller": increaseTrainSpeed,
     "laufe schneller": increaseTrainSpeed,
@@ -63,77 +81,111 @@ train_custom_speed_commands = {
     "verringere tempo": reduceTrainSpeed,
 }
 
-train_standard_commands = {
+train_direction_commands = {
+    #Commands for train direction with speed stop
+
     #Direction forwards
     "geradeaus": "Forwards",
-    "fahre geradeaus": "Forwards",
-    "richtig geradeaus": "Forwards",
-    "in richtung geradeaus": "Forwards",
-    "fahre in richtung geradeaus": "Forwards",
-    "fahre in die richtung geradeaus": "Forwards",
-    "in richtung geradeaus fahren": "Forwards",
-    "in richtung geradeaus bewegen": "Forwards",
-    "bewege dich geradeaus": "Forwards",
-    "gehe geradeaus": "Forwards",
-    "geradeaus fahren": "Forwards",
-    "gehe voran geradeaus": "Forwards",
+    "schalte geradeaus": "Forwards",
+    "schalte in richtung geradeaus": "Forwards",
+    "schalte in die richtung geradeaus": "Forwards",
+
     "setze den weg geradeaus": "Forwards",
     "setze den pfad geradeaus": "Forwards",
     "setze den kurs geradeaus": "Forwards",
     "setze die route geradeaus": "Forwards",
     "setze die richtung geradeaus": "Forwards",
-    "laufe geradeaus": "Forwards",
-    "folge der spur geradeaus": "Forwards",
-    "folge der linie geradeaus": "Forwards",
-    "folge dem weg geradeaus": "Forwards",
-    "verfolge den weg geradeaus": "Forwards",
-    "verfolge den pfad geradeaus": "Forwards",
-    "verfolge den kurs geradeaus": "Forwards",
-    "verfolge die route geradeaus": "Forwards",
-    "verfolge die linie geradeaus": "Forwards",
-    "fahre weiter geradeaus": "Forwards",
-    "gehe weiter geradeaus": "Forwards",
-    "laufe weiter geradeaus": "Forwards",
-    "folge dem weg weiter geradeaus": "Forwards",
-    "folge der straße weiter geradeaus": "Forwards",
-    "folge der linie weiter geradeaus": "Forwards",
-    "folge der schiene weiter geradeaus": "Forwards",
 
     "vorwärts": "Forwards",
-    "fahre vorwärts": "Forwards",
-    "richtig vorwärts": "Forwards",
-    "in richtung vorwärts": "Forwards",
-    "fahre in richtung vorwärts": "Forwards",
-    "fahre in die richtung vorwärts": "Forwards",
-    "in richtung vorwärts fahren": "Forwards",
-    "in richtung vorwärts bewegen": "Forwards",
-    "bewege dich vorwärts": "Forwards",
-    "vorwärts fahren": "Forwards",
-    "gehe voran vorwärts": "Forwards",
+    "schalte vorwärts": "Forwards",
+    "schalte in richtung vorwärts": "Forwards",
+    "schalte in die richtung vorwärts": "Forwards",
+
     "setze den weg auf vorwärts": "Forwards",
     "setze den pfad auf vorwärts": "Forwards",
     "setze den kurs auf vorwärts": "Forwards",
     "setze die route auf vorwärts": "Forwards",
     "setze die richtung auf vorwärts": "Forwards",
-    "laufe vorwärts": "Forwards",
-    "folge der spur vorwärts": "Forwards",
-    "folge der linie vorwärts": "Forwards",
-    "folge dem weg vorwärts": "Forwards",
-    "verfolge den weg vorwärts": "Forwards",
-    "verfolge den pfad vorwärts": "Forwards",
-    "verfolge den kurs vorwärts": "Forwards",
-    "verfolge die route vorwärts": "Forwards",
-    "verfolge die linie vorwärts": "Forwards",
-    "gehe weiter vorwärts": "Forwards",
-    "laufe weiter vorwärts": "Forwards",
-    "folge dem weg weiter vorwärts": "Forwards",
-    "folge der straße weiter vorwärts": "Forwards",
-    "folge der linie weiter vorwärts": "Forwards",
-    "folge der schiene weiter vorwärts": "Forwards",
-    "gerade vorwärts": "Forwards",
-    "gehe vorwärts": "Forwards",
-    "vorwärts bewegen": "Forwards",
-    "fahre weiter vorwärts": "Forwards",
+
+    #Direction backwards
+    "rückwärts": "Backwards",
+    "schalte rückwärts": "Backwards",
+    "schalte in richtung rückwärts": "Backwards",
+    "schalte in die richtung rückwärts": "Backwards",
+
+    "setze den weg rückwärts": "Backwards",
+    "setze den pfad rückwärts": "Backwards",
+    "setze den kurs rückwärts": "Backwards",
+    "setze die route rückwärts": "Backwards",
+    "setze die richtung rückwärts": "Backwards",
+
+    "nach hinten": "Backwards",
+    "schalte nach hinten": "Backwards",
+    "schalte in richtung nach hinten": "Backwards",
+    "schalte in die richtung nach hinten": "Backwards",
+
+    "setze den weg auf nach hinten": "Backwards",
+    "setze den pfad auf nach hinten": "Backwards",
+    "setze den kurs auf nach hinten": "Backwards",
+    "setze die route auf nach hinten": "Backwards",
+    "setze die richtung auf nach hinten": "Backwards",
+}
+
+train_direction_speed_commands = {
+    #Commands for train direction with speed continue
+
+    #Direction forwards
+    "fahre rückwärts": "Forwards",
+    "fahre in richtung rückwärts": "Forwards",
+    "fahre in die richtung rückwärts": "Forwards",
+    "fahre weiter rückwärts": "Forwards",
+    "fahre weiter in richtung rückwärts": "Forwards",
+    "fahre weiter in die richtung rückwärts": "Forwards",
+    "fahre mit selber geschwindigkeit rückwärts": "Forwards",
+    "fahre mit gleicher geschwindigkeit rückwärts": "Forwards",
+    "fahre mit gleicher geschwindigkeit in richtung rückwärts": "Forwards",
+    "fahre mit gleicher geschwindigkeit in die richtung rückwärts": "Forwards",
+    "fahre mit der selber geschwindigkeit rückwärts": "Forwards",
+    "fahre mit der gleicher geschwindigkeit rückwärts": "Forwards",
+    "fahre mit der gleicher geschwindigkeit in richtung rückwärts": "Forwards",
+    "fahre mit der gleicher geschwindigkeit in die richtung rückwärts": "Forwards",
+    "in richtung rückwärts fahren": "Forwards",
+    "in richtung rückwärts bewegen": "Forwards",
+    "gleiche geschwindigkeit rückwärts": "Forwards",
+    "gleiche geschwindigkeit in richtung rückwärts": "Forwards",
+    "gleiche geschwindigkeit in die richtung rückwärts": "Forwards",
+    "mit gleicher geschwindigkeit rückwärts": "Forwards",
+    "mit gleicher geschwindigkeit in richtung rückwärts": "Forwards",
+    "mit gleicher geschwindigkeit in die richtung rückwärts": "Forwards",
+    "mit der gleicher geschwindigkeit rückwärts": "Forwards",
+    "mit der gleicher geschwindigkeit in richtung rückwärts": "Forwards",
+    "mit der gleicher geschwindigkeit in die richtung rückwärts": "Forwards",
+
+    "fahre nach hinten": "Forwards",
+    "fahre in richtung nach hinten": "Forwards",
+    "fahre in die richtung nach hinten": "Forwards",
+    "fahre weiter nach hinten": "Forwards",
+    "fahre weiter in richtung nach hinten": "Forwards",
+    "fahre weiter in die richtung nach hinten": "Forwards",
+    "fahre mit selber geschwindigkeit nach hinten": "Forwards",
+    "fahre mit gleicher geschwindigkeit nach hinten": "Forwards",
+    "fahre mit gleicher geschwindigkeit in richtung nach hinten": "Forwards",
+    "fahre mit gleicher geschwindigkeit in die richtung nach hinten": "Forwards",
+    "fahre mit der selber geschwindigkeit nach hinten": "Forwards",
+    "fahre mit der gleicher geschwindigkeit nach hinten": "Forwards",
+    "fahre mit der gleicher geschwindigkeit in richtung nach hinten": "Forwards",
+    "fahre mit der gleicher geschwindigkeit in die richtung nach hinten": "Forwards",
+    "in richtung nach hinten fahren": "Forwards",
+    "in richtung nach hinten bewegen": "Forwards",
+    "gleiche geschwindigkeit nach hinten": "Forwards",
+    "gleiche geschwindigkeit in richtung nach hinten": "Forwards",
+    "gleiche geschwindigkeit in die richtung nach hinten": "Forwards",
+    "mit gleicher geschwindigkeit nach hinten": "Forwards",
+    "mit gleicher geschwindigkeit in richtung nach hinten": "Forwards",
+    "mit gleicher geschwindigkeit in die richtung nach hinten": "Forwards",
+    "mit der gleicher geschwindigkeit nach hinten": "Forwards",
+    "mit der gleicher geschwindigkeit in richtung nach hinten": "Forwards",
+    "mit der gleicher geschwindigkeit in die richtung nach hinten": "Forwards",
 
     "gerade nach vorne": "Forwards",
     "voran": "Forwards",
@@ -145,87 +197,286 @@ train_standard_commands = {
     "fahre weiter voran": "Forwards",
     "fahre nach vorne": "Forwards",
 
-
     #Direction backwards
-    "rückwärts": "Backwards",
-    "fahre rückwärts": "Backwards",
-    "richtig rückwärts": "Backwards",
-    "in richtung rückwärts": "Backwards",
-    "fahre in richtung rückwärts": "Backwards",
-    "fahre in die richtung rückwärts": "Backwards",
-    "in richtung rückwärts fahren": "Backwards",
-    "in richtung rückwärts bewegen": "Backwards",
-    "bewege dich rückwärts": "Backwards",
-    "gehe rückwärts": "Backwards",
-    "rückwärts fahren": "Backwards",
-    "setze den weg rückwärts": "Backwards",
-    "setze den pfad rückwärts": "Backwards",
-    "setze den kurs rückwärts": "Backwards",
-    "setze die route rückwärts": "Backwards",
-    "setze die richtung rückwärts": "Backwards",
-    "laufe rückwärts": "Backwards",
-    "folge der spur rückwärts": "Backwards",
-    "folge der linie rückwärts": "Backwards",
-    "folge dem weg rückwärts": "Backwards",
-    "verfolge den weg rückwärts": "Backwards",
-    "verfolge den pfad rückwärts": "Backwards",
-    "verfolge den kurs rückwärts": "Backwards",
-    "verfolge die route rückwärts": "Backwards",
-    "verfolge die linie rückwärts": "Backwards",
-    "fahre weiter rückwärts": "Backwards",
-    "gehe weiter rückwärts": "Backwards",
-    "laufe weiter rückwärts": "Backwards",
-    "folge dem weg weiter rückwärts": "Backwards",
-    "folge der straße weiter rückwärts": "Backwards",
-    "folge der linie weiter rückwärts": "Backwards",
-    "folge der schiene weiter rückwärts": "Backwards",
+    "fahre geradeaus": "Backwards",
+    "fahre in richtung geradeaus": "Backwards",
+    "fahre in die richtung geradeaus": "Backwards",
+    "fahre weiter geradeaus": "Backwards",
+    "fahre weiter in richtung geradeaus": "Backwards",
+    "fahre weiter in die richtung geradeaus": "Backwards",
+    "fahre mit selber geschwindigkeit geradeaus": "Backwards",
+    "fahre mit gleicher geschwindigkeit geradeaus": "Backwards",
+    "fahre mit gleicher geschwindigkeit in richtung geradeaus": "Backwards",
+    "fahre mit gleicher geschwindigkeit in die richtung geradeaus": "Backwards",
+    "fahre mit der selber geschwindigkeit geradeaus": "Backwards",
+    "fahre mit der gleicher geschwindigkeit geradeaus": "Backwards",
+    "fahre mit der gleicher geschwindigkeit in richtung geradeaus": "Backwards",
+    "fahre mit der gleicher geschwindigkeit in die richtung geradeaus": "Backwards",
+    "in richtung geradeaus fahren": "Backwards",
+    "in richtung geradeaus bewegen": "Backwards",
+    "gleiche geschwindigkeit geradeaus": "Backwards",
+    "gleiche geschwindigkeit in richtung geradeaus": "Backwards",
+    "gleiche geschwindigkeit in die richtung geradeaus": "Backwards",
+    "mit gleicher geschwindigkeit geradeaus": "Backwards",
+    "mit gleicher geschwindigkeit in richtung geradeaus": "Backwards",
+    "mit gleicher geschwindigkeit in die richtung geradeaus": "Backwards",
+    "mit der gleicher geschwindigkeit geradeaus": "Backwards",
+    "mit der gleicher geschwindigkeit in richtung geradeaus": "Backwards",
+    "mit der gleicher geschwindigkeit in die richtung geradeaus": "Backwards",
 
-    "nach hinten": "Backwards",
-    "fahre nach hinten": "Backwards",
-    "richtig nach hinten": "Backwards",
-    "in richtung nach hinten": "Backwards",
-    "fahre in richtung nach hinten": "Backwards",
-    "fahre in die richtung nach hinten": "Backwards",
-    "in richtung nach hinten fahren": "Backwards",
-    "in richtung nach hinten bewegen": "Backwards",
-    "bewege dich nach hinten": "Backwards",
-    "nach hinten fahren": "Backwards",
-    "setze den weg auf nach hinten": "Backwards",
-    "setze den pfad auf nach hinten": "Backwards",
-    "setze den kurs auf nach hinten": "Backwards",
-    "setze die route auf nach hinten": "Backwards",
-    "setze die richtung auf nach hinten": "Backwards",
-    "laufe nach hinten": "Backwards",
-    "folge der spur nach hinten": "Backwards",
-    "folge der linie nach hinten": "Backwards",
-    "folge dem weg nach hinten": "Backwards",
-    "verfolge den weg nach hinten": "Backwards",
-    "verfolge den pfad nach hinten": "Backwards",
-    "verfolge den kurs nach hinten": "Backwards",
-    "verfolge die route nach hinten": "Backwards",
-    "verfolge die linie nach hinten": "Backwards",
-    "gehe weiter nach hinten": "Backwards",
-    "laufe weiter nach hinten": "Backwards",
-    "folge dem weg weiter nach hinten": "Backwards",
-    "folge der straße weiter nach hinten": "Backwards",
-    "folge der linie weiter nach hinten": "Backwards",
-    "folge der schiene weiter nach hinten": "Backwards",
-    "gehe nach hinten": "Backwards",
-    "nach hinten bewegen": "Backwards",
-    "fahre weiter nach hinten": "Backwards",
+    "fahre vorwärts": "Backwards",
+    "fahre in richtung vorwärts": "Backwards",
+    "fahre in die richtung vorwärts": "Backwards",
+    "fahre weiter vorwärts": "Backwards",
+    "fahre weiter in richtung vorwärts": "Backwards",
+    "fahre weiter in die richtung vorwärts": "Backwards",
+    "fahre mit selber geschwindigkeit vorwärts": "Backwards",
+    "fahre mit gleicher geschwindigkeit vorwärts": "Backwards",
+    "fahre mit gleicher geschwindigkeit in richtung vorwärts": "Backwards",
+    "fahre mit gleicher geschwindigkeit in die richtung vorwärts": "Backwards",
+    "fahre mit der selber geschwindigkeit vorwärts": "Backwards",
+    "fahre mit der gleicher geschwindigkeit vorwärts": "Backwards",
+    "fahre mit der gleicher geschwindigkeit in richtung vorwärts": "Backwards",
+    "fahre mit der gleicher geschwindigkeit in die richtung vorwärts": "Backwards",
+    "in richtung vorwärts fahren": "Backwards",
+    "in richtung vorwärts bewegen": "Backwards",
+    "gleiche geschwindigkeit vorwärts": "Backwards",
+    "gleiche geschwindigkeit in richtung vorwärts": "Backwards",
+    "gleiche geschwindigkeit in die richtung vorwärts": "Backwards",
+    "mit gleicher geschwindigkeit vorwärts": "Backwards",
+    "mit gleicher geschwindigkeit in richtung vorwärts": "Backwards",
+    "mit gleicher geschwindigkeit in die richtung vorwärts": "Backwards",
+    "mit der gleicher geschwindigkeit vorwärts": "Backwards",
+    "mit der gleicher geschwindigkeit in richtung vorwärts": "Backwards",
+    "mit der gleicher geschwindigkeit in die richtung vorwärts": "Backwards",
 
     "gerade nach hinten": "Backwards",
-    "fahre geradewegs nach hinten": "Backwards",
-
-
-    "stop": 0,
-    "halte an": 0,
-    "anhalten": 0,
-    "start": 500,
-    "fahre los": 500,
-    "fahre so schnell wie möglich": 1000,
+    "nach hinten": "Backwards",
+    "nach hinten bewegen": "Backwards",
+    "bewege dich nach hinten": "Backwards",
+    "bewege dich hinten": "Backwards",
+    "gehe hinten": "Backwards",
+    "fahre weiter hinten": "Backwards",
 }
 
+accessories_light_commands = {
+    "an": True,
+    "aktiviert": True,
+    "aktiviere": True,
+    "aktivieren": True,
+    "ein": True,
+    "einschalten": True,
+    "schalte ein": True,
+    "schalte dich ein": True,
+    "schalte an": True,
+    "schalte dich an": True,
+    "gehe an": True,
+
+    "aus": False,
+    "deaktiviert": False,
+    "deaktiviere": False,
+    "deaktivieren": False,
+    "ausschalten": False,
+    "schalte aus": False,
+    "schalte dich aus": False,
+    "schalte ab": False,
+    "schalte dich ab": False,
+    "gehe aus": False,
+}
+
+accessories_general_turnouts_commands = {
+    #Weichen Gerade/Grün
+    "gerade": True,
+    "schalte gerade": True,
+    "schalte dich gerade": True,
+    "schalte in die gerade position": True,
+    "schalte in die position gerade": True,
+    "schalte auf gerade": True,
+    "schalte auf gerade um": True,
+    "schalte dich auf gerade": True,
+    "schalte dich auf gerade um": True,
+    "setze auf gerade": True,
+    "stelle auf gerade": True,
+    "aktiviere gerade position": True,
+    "wähle gerade aus": True,
+    "lege auf gerade": True,
+    "lege auf gerade um": True,
+    "ändere auf gerade": True,
+
+    "grün": True,
+    "schalte grün": True,
+    "schalte dich grün": True,
+    "schalte dich auf grün": True,
+    "schalte dich auf grün um": True,
+    "schalte in die grün position": True,
+    "schalte in die position grün": True,
+    "schalte auf grün": True,
+    "schalte auf grün um": True,
+    "setze auf grün": True,
+    "stelle auf grün": True,
+    "aktiviere grün position": True,
+    "wähle grün aus": True,
+    "lege auf grün": True,
+    "lege auf grün um": True,
+    "ändere auf grün": True,
+
+    # Weichen Rot/Kurve/Abzweigend
+    "kurve": False,
+    "schalte kurve": False,
+    "schalte die Kurve": False,
+    "schalte auf Kurve": False,
+    "schalte auf die Kurve um": False,
+    "setze auf Kurve": False,
+    "stelle auf Kurve": False,
+    "aktiviere Kurve-Position": False,
+    "wähle Kurve aus": False,
+    "lege auf Kurve": False,
+    "ändere auf Kurve": False,
+
+    "abzweigend": False,
+    "schalte abzweigend": False,
+    "schalte abzweigend um": False,
+    "schalte auf abzweigend": False,
+    "schalte auf die Abzweigend-Position": False,
+    "setze auf abzweigend": False,
+    "stelle auf abzweigend": False,
+    "aktiviere Abzweigend-Position": False,
+    "wähle Abzweigend aus": False,
+    "lege auf abzweigend": False,
+    "ändere auf abzweigend": False,
+
+    "rot": False,
+    "schalte rot": False,
+    "schalte dich rot": False,
+    "schalte dich auf rot": False,
+    "schalte dich auf rot um": False,
+    "schalte in die rot position": False,
+    "schalte in die position rot": False,
+    "schalte auf rot": False,
+    "schalte auf rot um": False,
+    "setze auf rot": False,
+    "stelle auf rot": False,
+    "aktiviere rot position": False,
+    "wähle rot aus": False,
+    "lege auf rot ": False,
+    "lege auf rot um": False,
+    "ändere auf rot": False,
+}
+
+accessories_right_turnouts_commands = {
+    "rechts": False,
+    "schalte rechts": False,
+    "schalte dich rechts": False,
+    "schalte dich auf rechts": False,
+    "schalte dich auf rechts um": False,
+    "schalte in die rechts position": False,
+    "schalte in die rechte position": False,
+    "schalte auf rechts": False,
+    "schalte auf rechts um": False,
+    "setze auf rechts": False,
+    "stelle auf rechts": False,
+    "aktiviere rechte position": False,
+    "wähle rechts aus": False,
+    "lege auf rechts": False,
+    "lege auf rechts um": False,
+    "ändere auf rechts": False,
+
+    "links": True,
+    "schalte links": True,
+    "schalte dich links": True,
+    "schalte dich auf links": True,
+    "schalte dich auf links um": True,
+    "schalte in die links position": True,
+    "schalte in die linke position": True,
+    "schalte auf links": True,
+    "schalte auf links um": True,
+    "setze auf links": True,
+    "stelle auf links": True,
+    "aktiviere linke position": True,
+    "wähle links aus": True,
+    "lege auf links": True,
+    "lege auf links um": True,
+    "ändere auf links": True,
+}
+
+accessories_left_turnouts_commands = {
+    "rechts": True,
+    "schalte rechts": True,
+    "schalte dich rechts": True,
+    "schalte dich auf rechts": True,
+    "schalte dich auf rechts um": True,
+    "schalte in die rechts position": True,
+    "schalte in die rechte position": True,
+    "schalte auf rechts": True,
+    "schalte auf rechts um": True,
+    "setze auf rechts": True,
+    "stelle auf rechts": True,
+    "aktiviere rechte position": True,
+    "wähle rechts aus": True,
+    "lege auf rechts": True,
+    "lege auf rechts um": True,
+    "ändere auf rechts": True,
+
+    "links": False,
+    "schalte links": False,
+    "schalte dich links": False,
+    "schalte dich auf links": False,
+    "schalte dich auf links um": False,
+    "schalte in die links position": False,
+    "schalte in die linke position": False,
+    "schalte auf links": False,
+    "schalte auf links um": False,
+    "setze auf links": False,
+    "stelle auf links": False,
+    "aktiviere linke position": False,
+    "wähle links aus": False,
+    "lege auf links": False,
+    "lege auf links um": False,
+    "ändere auf links": False,
+}
+
+accessories_triple_switch_commands = {
+    #Dreiwegweichen
+    #"links"
+    #"mitte"
+    #"rechts"
+}
+
+accessories_uncoupling_tracks_commands = {
+    "aktivier": True,
+    "aktiviere": True,
+    "aktivieren": True,
+    "aktiviert": True,
+    "schalte ein": True,
+    "schalte dich ein": True,
+    "schalte an": True,
+    "schalte dich an": True,
+    "gehe an": True,
+    "schalte auf": True,
+    "entkuppeln": True,
+    "entkupple": True,
+    "abkuppeln": True,
+    "entkupple dich": True,
+    "löse Verbindung": True,
+    "löse die Verbindung": True,
+    "löse die Kupplung": True,
+    "löse die Verbindung zwischen Wagen": True,
+    "trenne Wagen": True,
+    "trenne die Wagen": True,
+    "löse die Wagen": True,
+    "löse den Zug": True,
+    "löse den Zugteil": True,
+    "löse die Lokomotive": True,
+    "kuppel ab": True,
+    "kuppel die Wagen ab": True,
+    "kuppel die Lokomotive ab": True,
+    "kuppel den Zugteil ab": True,
+    "kuppel den Zug ab": True,
+    "kuppel dich ab": True,
+    "kuppel die Kupplung ab": True,
+    "trenne die Kupplung": True,
+    "löse die Verbindung zwischen Lokomotive und Wagen": True,
+}
 
 accessories_light_signals = {
     # lichtsignale
@@ -266,10 +517,9 @@ accessories_light_signals = {
     "s acht": "S 8",
 }
 
-accessories_normal_switches = {
-    #Normale Weichen
+accessories_right_turnouts = {
+    #Rechtsweichen
     "weiche drei": "W 3",
-    "weiche sechs": "W 6",
     "weiche neun": "W 9",
     "weiche zehn": "W 10",
     "weiche zwölf": "W 12",
@@ -277,7 +527,6 @@ accessories_normal_switches = {
     "weiche vierzehn": "W 14",
 
     "weiche w drei": "W 3",
-    "weiche w sechs": "W 6",
     "weiche w neun": "W 9",
     "weiche w zehn": "W 10",
     "weiche w zwölf": "W 12",
@@ -285,7 +534,6 @@ accessories_normal_switches = {
     "weiche w vierzehn": "W 14",
 
     "gleis drei": "W 3",
-    "gleis sechs": "W 6",
     "gleis neun": "W 9",
     "gleis zehn": "W 10",
     "gleis zwölf": "W 12",
@@ -293,7 +541,6 @@ accessories_normal_switches = {
     "gleis vierzehn": "W 14",
 
     "gleis w drei": "W 3",
-    "gleis w sechs": "W 6",
     "gleis w neun": "W 9",
     "gleis w zehn": "W 10",
     "gleis w zwölf": "W 12",
@@ -301,7 +548,6 @@ accessories_normal_switches = {
     "gleis w vierzehn": "W 14",
 
     "w drei": "W 3",
-    "w sechs": "W 6",
     "w neun": "W 9",
     "w zehn": "W 10",
     "w zwölf": "W 12",
@@ -309,9 +555,19 @@ accessories_normal_switches = {
     "w vierzehn": "W 14",
 }
 
-accessories_triple_switch = {
+accessories_left_turnouts = {
+    #Linksweichen
+    "weiche sechs": "W 6",
+    "weiche w sechs": "W 6",
+    "gleis sechs": "W 6",
+    "gleis w sechs": "W 6",
+    "w sechs": "W 6",
+}
+
+accessories_Three_way_turnouts = {
     #Dreiwegweichen
-    #TODO: Add commands for three way switches
+    #TODO: Add commands list for three way switches
+    #TODO: Dynamically create commands for three way switches
 }
 
 accessories_uncoupling_tracks = {
@@ -337,19 +593,62 @@ trains = {
     "bahn vier": "zug_4",
 }
 
-for train_name, train_id in trains.items():
-    for action, value in train_standard_commands.items():
-        command_name = f"{train_name} {action}"
-        if isinstance(value, str):
-            commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_direction(tid, val)
-        else:
-            commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_speed(tid, val)
 
-    for action, value in train_custom_speed_commands.items():
+#Dynamically create commands for trains
+for train_name, train_id in trains.items():
+    #Commands for train speed
+    for action, value in train_speed_commands.items():
+        command_name = f"{train_name} {action}"
+        commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_speed(tid, val)
+    #Commands for train direction
+    for action, value in train_direction_commands.items():
+        command_name = f"{train_name} {action}"
+        commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_direction(tid, val)
+    #Commands for train direction with speed
+    for action, value in train_direction_speed_commands.items():
+        command_name = f"{train_name} {action}"
+        commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_direction_with_speed(tid, val)
+    #Commands for train adding speed
+    for action, value in train_add_speed_commands.items():
         command_name = f"{train_name} {action}"
         commands[command_name] = lambda tid=train_id, val=value: http_client.add_train_speed(tid, val)
 
+#Dynamically create commands for accessory signals
+for accessory_name, accessory_id in accessories_light_signals.items():
+    #Commands for accessories light
+    for action, value in accessories_light_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
 
+#Dynamically create commands for accessory right turnouts
+for accessory_name, accessory_id in accessories_right_turnouts.items():
+    #Commands for accessories right turnouts
+    for action, value in accessories_general_turnouts_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
+    for action, value in accessories_right_turnouts_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
+
+#Dynamically create commands for accessory left turnouts
+for accessory_name, accessory_id in accessories_left_turnouts.items():
+    #Commands for accessories left turnouts
+    for action, value in accessories_general_turnouts_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
+    for action, value in accessories_left_turnouts_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
+
+#Dynamically create commands for accessory uncoupling tracks
+for accessory_name, accessory_id in accessories_uncoupling_tracks.items():
+    #Commands for accessories uncoupling tracks
+    for action, value in accessories_uncoupling_tracks_commands.items():
+        command_name = f"{accessory_name} {action}"
+        commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
+
+#for command in commands.keys():
+#    print(command)
 print(f"Total of {len(commands)} commands loaded")
 
 
