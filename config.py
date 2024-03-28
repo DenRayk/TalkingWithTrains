@@ -8,22 +8,27 @@ trains = {
     "zug_4": 16390,
 }
 
-#TODO: Add switch IDs
-switches = {
-    "weiche_1": 11111,
-    "weiche_2": 11111,
-    "weiche_3": 11111,
-    "weiche_4": 11111,
-    "weiche_5": 11111,
-    "weiche_6": 11111,
-    "weiche_7": 11111,
-    "weiche_8": 11111,
-    "weiche_9": 11111,
-}
-
-#TODO: Add uncoupling track IDs
-uncoupling_tracks = {
-    "entkupplungsgleis_1": 11111,
+accessories = {
+    "S 1": 12304,
+    "S 2": 12305,
+    "S 3": 12306,
+    "S 5": 12308,
+    "S 6": 12309,
+    "S 7": 12310,
+    "S 8": 12311,
+    "W 1 DREI LI/MI": 12289,
+    "W 1 DREI RE/MI": 12288,
+    "W 10": 12297,
+    "W 11": 12298,
+    "W 12": 12299,
+    "W 13": 12300,
+    "W 14": 12301,
+    "W 3": 12290,
+    "W 4": 12291,
+    "W 5 DREI LI/MI": 12292,
+    "W 5 DREI RE/MI": 12295,
+    "W 6": 12293,
+    "W 9": 12296,
 }
 
 functions_crossrail = {
