@@ -67,5 +67,3 @@ functions_drg = {
     "Rauch": 2,
     "Laggy Betriebsgeräusche": 3
 }
-
-
