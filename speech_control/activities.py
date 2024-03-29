@@ -95,8 +95,8 @@ for accessory_name, accessory_id in part_designations.accessories_three_way_turn
         command_name = f"{accessory_name} {action}"
         commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_three_way_turnouts_status(aid, val)
 
-#for command in commands.keys():
-#    print(command)
+for command in commands.keys():
+    print(command)
 print(f"Total of {len(commands)} commands loaded")
 
 
