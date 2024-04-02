@@ -12,6 +12,7 @@ train_speed_commands = {
     "losfahren": 500,
     "fahre so schnell wie möglich": 1000,
     "fahre mit voller geschwindigkeit": 1000,
+    "fahre mit maximaler geschwindigkeit": 1000,
     "maximale beschleunigung": 1000,
     "maximale geschwindigkeit": 1000,
 }
