@@ -4,7 +4,7 @@ from fuzzywuzzy import process
 import services.http_client as http_client
 
 
-import speech_control.generate as generate
+import speech_control.command_generation.generation as generation
 
 commands = {
     #System commands
@@ -35,10 +35,10 @@ commands = {
 }
 
 # Dynamically create commands
-generate.generate_commands(commands)
+generation.generate_commands(commands)
 
 # Generate grammar with all unique words
-#generate.generate_grammar(commands.keys())
+#generation.generate_grammar(commands.keys())
 
 print(f"Total of {len(commands)} commands loaded")
 

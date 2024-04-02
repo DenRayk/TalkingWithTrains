@@ -1,10 +1,11 @@
 import json
+import os
 
 import services.http_client as http_client
 
-import speech_control.train_commands as train_commands
-import speech_control.accessories_commands as accessories_commands
-import speech_control.part_designations as part_designations
+import speech_control.command_generation.train_commands as train_commands
+import speech_control.command_generation.accessories_commands as accessories_commands
+import speech_control.command_generation.part_designations as part_designations
 
 
 def generate_commands(commands):
@@ -62,24 +63,30 @@ def generate_commands(commands):
             command_name = f"{accessory_name} {action}"
             commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_status(aid, val)
 
-    # Dynamically create commands for accessory three way turnouts
+    # Dynamically create commands for accessory three-way turnouts
     for accessory_name, accessory_id in part_designations.accessories_three_way_turnouts.items():
-        # Commands for accessories three way turnouts
+        # Commands for accessories three-way turnouts
         for action, value in accessories_commands.accessories_three_way_turnouts_commands.items():
             command_name = f"{accessory_name} {action}"
             commands[command_name] = lambda aid=accessory_id, val=value: http_client.set_accessory_three_way_turnouts_status(aid, val)
 
 
 def generate_grammar(commands):
-    words = []
+    words = set()
     for command in commands:
-        words.extend(command.split())
+        words.update(command.split())
 
-    unique_words = list(set(words))
-    unique_words.append("[unk]")
-    unique_words.append("modellbahn")
+    words.update(["[unk]", "modellbahn"])
+    unique_words = sorted(words)
 
-    unique_words.sort()
+    # Pfad zur übergeordneten Ebene des aktuellen Skriptverzeichnisses
+    current_dir = os.path.dirname(__file__)
+    parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir))
+    # Konstruiere den Pfad zur grammar.json-Datei im übergeordneten Verzeichnis
+    file_path = os.path.join(parent_dir, 'grammar.json')
 
-    with open('grammar.json', 'w', encoding='utf-8') as f:
-        json.dump(unique_words, f, ensure_ascii=False, indent=0)
+    if os.path.exists(file_path) and os.access(file_path, os.W_OK):
+        with open(file_path, 'w', encoding='utf-8') as f:
+            json.dump(unique_words, f, ensure_ascii=False, indent=4)
+    else:
+        print(f"The file {file_path} does not exist or is not writable.")
