@@ -49,25 +49,29 @@ def send_post_request(endpoint, data=None):
 
 def set_train_direction(zug, direction):
     response = send_post_request(f"lok/{config.trains[zug]}/direction", data={"direction": direction})
-    print(f"Zug {zug} fährt {direction}")
+    if response:
+        print(f"Zug {zug} fährt {direction}")
     return response
 
 
 def set_train_speed(zug, speed):
     response = send_post_request(f"lok/{config.trains[zug]}/speed", data={"speed": speed})
-    print(f"Zug {zug} fährt mit {speed / 10}")
+    if response:
+        print(f"Zug {zug} fährt mit {speed / 10}")
     return response
 
 
 def set_train_function(zug, function):
     response = send_post_request(f"lok/{config.trains[zug]}/function/{config.functions_crossrail[function]}")
-    print(f"Zug {zug} {function}")
+    if response:
+        print(f"Zug {zug} {function}")
     return response
 
 
 def set_accessory_status(accessory, status):
     response = send_post_request(f"accessory/{config.accessories[accessory]}", data={"position": int(status), "power": 1, "value": 1})
-    print(f"Accessory {accessory} set to {status}")
+    if response:
+        print(f"Accessory {accessory} set to {status}")
     return response
 
 
@@ -90,6 +94,8 @@ def set_accessory_three_way_turnouts_status(accessory, direction):
     for accessory_action in accessory_actions:
         accessory_name, position = accessory_action
         response = send_post_request(f"accessory/{config.accessories[accessory_name]}", data={"position": int(position), "power": 1, "value": 1})
+        if response is None:
+            return None
         responses.append(response)
 
     return responses
@@ -97,25 +103,27 @@ def set_accessory_three_way_turnouts_status(accessory, direction):
 
 def get_train_speed(zug):
     response = send_get_request(f"lok/{config.trains[zug]}/speed")
-    print(f"Zug {zug} fährt mit {response.json()['speed'] / 10}")
+    if response:
+        print(f"Zug {zug} fährt mit {response.json()['speed'] / 10}")
     return response
 
 
 def get_train_direction(zug):
     response = send_get_request(f"lok/{config.trains[zug]}/direction")
-    print(f"Zug {zug} fährt {response.json()['direction']}")
+    if response:
+        print(f"Zug {zug} fährt {response.json()['direction']}")
     return response
 
 
 def set_train_direction_with_speed(zug, direction):
-    currentSpeed = get_train_speed(zug).json()['speed']
+    current_speed = get_train_speed(zug).json()['speed']
     set_train_direction(zug, direction)
-    set_train_speed(zug, currentSpeed)
+    set_train_speed(zug, current_speed)
 
 
 def add_train_speed(zug, speed):
-    currentSpeed = get_train_speed(zug).json()['speed']
-    set_train_speed(zug, currentSpeed + speed)
+    current_speed = get_train_speed(zug).json()['speed']
+    set_train_speed(zug, current_speed + speed)
 
 
 def drive_all():
@@ -132,8 +140,10 @@ def set_system_mode(mode):
     try:
         url = f"{base_url}/system/status?status={mode}"
         response = requests.post(url, headers={"x-can-hash": config.x_can_hash})
-        print(f"System mode set to {mode}")
-        return response
+        if response.status_code in [200, 201, 202, 203, 204]:
+            print(f"System mode set to {mode}")
+            return response
+        return None
     except requests.exceptions.ConnectionError:
         print("Connection to server failed")
         return None
