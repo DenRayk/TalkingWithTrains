@@ -48,14 +48,14 @@ def extract_activity(prompt_text):
 
     best_match, score = process.extractOne(command, commands.keys())
 
-    if score > 70:
+    if score >= 95:
         print(f'User Input: "{command}"\n'
               f'Execute: "{best_match}" ({score}%)')
-        commands[best_match]()
-        return True
+        response = commands[best_match]()
+        if response is None:
+            return "CONNECTION_ERROR"
+        return "COMMAND_EXECUTED_SUCCESSFULLY"
+
     else:
         print('Befehl nicht gefunden')
-        return False
-
-
-
+        return "COMMAND_NOT_FOUND"

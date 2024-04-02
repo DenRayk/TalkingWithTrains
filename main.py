@@ -52,9 +52,12 @@ def prompt(audio):
             LEDController.command_not_recognized()
             listening_for_wake_word = True
         else:
-            if extract_activity(prompt_text):
+            result = extract_activity(prompt_text)
+            if result == "COMMAND_EXECUTED_SUCCESSFULLY":
                 LEDController.command_executed()
-            else:
+            elif result == "CONNECTION_ERROR":
+                LEDController.connection_failed()
+            elif result == "COMMAND_NOT_FOUND":
                 LEDController.command_not_recognized()
 
             activate_voice_control()
