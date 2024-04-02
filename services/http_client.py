@@ -66,7 +66,7 @@ def set_train_function(zug, function):
 
 
 def set_accessory_status(accessory, status):
-    response = send_post_request(f"accessory/{config.accessories[accessory]}", data={"position": status})
+    response = send_post_request(f"accessory/{config.accessories[accessory]}", data={"position": int(status), "power": 1, "value": 1})
     print(f"Accessory {accessory} set to {status}")
     return response
 
@@ -89,7 +89,7 @@ def set_accessory_three_way_turnouts_status(accessory, direction):
     responses = []
     for accessory_action in accessory_actions:
         accessory_name, position = accessory_action
-        response = send_post_request(f"accessory/{config.accessories[accessory_name]}", data={"position": position})
+        response = send_post_request(f"accessory/{config.accessories[accessory_name]}", data={"position": int(position), "power": 1, "value": 1})
         responses.append(response)
 
     return responses
