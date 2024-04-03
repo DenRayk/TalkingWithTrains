@@ -37,6 +37,9 @@ commands = {
 # Dynamically create commands
 generation.generate_commands(commands)
 
+#for command in commands.keys():
+#    print(command)
+
 # Generate grammar with all unique words
 #generation.generate_grammar(commands.keys())
 
@@ -44,12 +47,12 @@ print(f"Total of {len(commands)} commands loaded")
 
 
 def extract_activity(prompt_text):
-    command = json.loads(prompt_text)["text"]
+    recognized_command = json.loads(prompt_text)["text"]
 
-    best_match, score = process.extractOne(command, commands.keys())
+    best_match, score = process.extractOne(recognized_command, commands.keys())
 
     if score >= 95:
-        print(f'User Input: "{command}"\n'
+        print(f'User Input: "{recognized_command}"\n'
               f'Execute: "{best_match}" ({score}%)')
         response = commands[best_match]()
         if response is None:

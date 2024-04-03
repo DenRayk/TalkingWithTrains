@@ -22,8 +22,7 @@ def generate_commands(commands):
         # Commands for train direction with speed
         for action, value in train_commands.train_direction_speed_commands.items():
             command_name = f"{train_name} {action}"
-            commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_direction_with_speed(tid,
-                                                                                                                val)
+            commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_direction_with_speed(tid, val)
         # Commands for train adding speed
         for action, value in train_commands.train_add_speed_commands.items():
             command_name = f"{train_name} {action}"
