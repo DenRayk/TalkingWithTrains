@@ -37,9 +37,6 @@ commands = {
 # Dynamically create commands
 generation.generate_commands(commands)
 
-#for command in commands.keys():
-#    print(command)
-
 # Generate grammar with all unique words
 #generation.generate_grammar(commands.keys())
 

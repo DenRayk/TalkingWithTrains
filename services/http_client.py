@@ -116,24 +116,38 @@ def get_train_direction(zug):
 
 
 def set_train_direction_with_speed(zug, direction):
-    current_speed = get_train_speed(zug).json()['speed']
-    set_train_direction(zug, direction)
-    set_train_speed(zug, current_speed)
+    current_speed_response = get_train_speed(zug)
+    if current_speed_response is not None:
+        current_speed = current_speed_response.json()['speed']
+        return set_train_direction(zug, direction), set_train_speed(zug, current_speed)
+    return None
 
 
 def add_train_speed(zug, speed):
-    current_speed = get_train_speed(zug).json()['speed']
-    set_train_speed(zug, current_speed + speed)
+    current_speed_response = get_train_speed(zug)
+    if current_speed_response is not None:
+        current_speed = current_speed_response.json()['speed']
+        new_speed = max(0, min(1000, current_speed + speed))
+        return set_train_speed(zug, new_speed)
+    return None
 
 
 def drive_all():
+    responses = []
     for zug in config.trains:
-        set_train_speed(zug, 50)
+        response = set_train_speed(zug, 500)
+        if response is not None:
+            responses.append(response)
+    return responses or None
 
 
 def stop_all():
+    responses = []
     for zug in config.trains:
-        set_train_speed(zug, 0)
+        response = set_train_speed(zug, 0)
+        if response is not None:
+            responses.append(response)
+    return responses or None
 
 
 def set_system_mode(mode):
