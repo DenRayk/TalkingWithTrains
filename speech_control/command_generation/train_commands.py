@@ -54,6 +54,7 @@ train_function_commands = {
     "licht aus": 1,
     "rauch an": 2,
     "rauch aus": 2,
+    "hupe": 4
 }
 
 train_direction_commands = {
