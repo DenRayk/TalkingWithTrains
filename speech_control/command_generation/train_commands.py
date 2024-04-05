@@ -49,10 +49,17 @@ train_add_speed_commands = {
     "verringere tempo": reduceTrainSpeed,
 }
 
-train_direction_commands = {
-    #Commands for train direction with speed stop
+train_function_commands = {
+    "licht an": 1,
+    "licht aus": 1,
+    "rauch an": 2,
+    "rauch aus": 2,
+}
 
-    #Direction forwards
+train_direction_commands = {
+    # Commands for train direction with speed stop
+
+    # Direction forwards
     "geradeaus": "Forwards",
     "schalte geradeaus": "Forwards",
     "schalte in richtung geradeaus": "Forwards",
@@ -75,7 +82,7 @@ train_direction_commands = {
     "setze die route auf vorwärts": "Forwards",
     "setze die richtung auf vorwärts": "Forwards",
 
-    #Direction backwards
+    # Direction backwards
     "rückwärts": "Backwards",
     "schalte rückwärts": "Backwards",
     "schalte in richtung rückwärts": "Backwards",
@@ -100,9 +107,9 @@ train_direction_commands = {
 }
 
 train_direction_speed_commands = {
-    #Commands for train direction with speed continue
+    # Commands for train direction with speed continue
 
-    #Direction backwards
+    # Direction backwards
     "fahre rückwärts": "Backwards",
     "fahre in richtung rückwärts": "Backwards",
     "fahre in die richtung rückwärts": "Backwards",
@@ -159,7 +166,7 @@ train_direction_speed_commands = {
     "gehe hinten": "Backwards",
     "fahre weiter hinten": "Backwards",
 
-    #Direction forwards
+    # Direction forwards
     "fahre geradeaus": "Backwards",
     "fahre in richtung geradeaus": "Backwards",
     "fahre in die richtung geradeaus": "Backwards",

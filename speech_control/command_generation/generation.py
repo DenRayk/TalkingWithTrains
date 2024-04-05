@@ -27,6 +27,14 @@ def generate_commands(commands):
         for action, value in train_commands.train_add_speed_commands.items():
             command_name = f"{train_name} {action}"
             commands[command_name] = lambda tid=train_id, val=value: http_client.add_train_speed(tid, val)
+        # Commands for train functions
+        for action, value in train_commands.train_function_commands.items():
+            command_name = f"{train_name} {action}"
+            if "an" in command_name:
+                commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_on(tid, val)
+            elif "aus" in command_name:
+                commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_off(tid, val)
+
 
     # Dynamically create commands for accessory signals
     for accessory_name, accessory_id in part_designations.accessories_light_signals.items():

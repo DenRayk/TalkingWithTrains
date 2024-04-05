@@ -61,15 +61,23 @@ def set_train_speed(zug, speed):
     return response
 
 
-def set_train_function(zug, function):
-    response = send_post_request(f"lok/{config.trains[zug]}/function/{config.functions_crossrail[function]}")
+def set_train_function_on(zug, function):
+    response = send_post_request(f"lok/{config.trains[zug]}/function/{function}", data={"value": 1})
+    if response:
+        print(f"Zug {zug} {function}")
+    return response
+
+
+def set_train_function_off(zug, function):
+    response = send_post_request(f"lok/{config.trains[zug]}/function/{function}", data={"value": 0})
     if response:
         print(f"Zug {zug} {function}")
     return response
 
 
 def set_accessory_status(accessory, status):
-    response = send_post_request(f"accessory/{config.accessories[accessory]}", data={"position": int(status), "power": 1, "value": 1})
+    response = send_post_request(f"accessory/{config.accessories[accessory]}",
+                                 data={"position": int(status), "power": 1, "value": 1})
     if response:
         print(f"Accessory {accessory} set to {status}")
     return response
@@ -93,7 +101,8 @@ def set_accessory_three_way_turnouts_status(accessory, direction):
     responses = []
     for accessory_action in accessory_actions:
         accessory_name, position = accessory_action
-        response = send_post_request(f"accessory/{config.accessories[accessory_name]}", data={"position": int(position), "power": 1, "value": 1})
+        response = send_post_request(f"accessory/{config.accessories[accessory_name]}",
+                                     data={"position": int(position), "power": 1, "value": 1})
         if response is None:
             return None
         responses.append(response)

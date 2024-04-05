@@ -104,11 +104,11 @@ accessories_three_way_turnouts = {
 
 accessories_uncoupling_tracks = {
     #Entkupplungsgleise
-    "entkupplungsgleis vier": "W 4",
-    "entkupplungsgleis elf": "W 11",
+    "gleis vier": "W 4",
+    "gleis elf": "W 11",
 
-    "entkupplungsgleis w vier": "W 4",
-    "entkupplungsgleis w elf": "W 11",
+    "gleis w vier": "W 4",
+    "gleis w elf": "W 11",
 
     "w vier": "W 4",
     "w elf": "W 11",
