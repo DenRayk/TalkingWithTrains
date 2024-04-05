@@ -51,6 +51,7 @@
     "halt",
     "halte",
     "hinten",
+    "hupe",
     "in",
     "kuppel",
     "kupplung",
@@ -60,6 +61,7 @@
     "langsamer",
     "laufe",
     "lege",
+    "licht",
     "lichtsignal",
     "linke",
     "links",
@@ -78,6 +80,7 @@
     "neun",
     "pfad",
     "position",
+    "rauch",
     "rechte",
     "rechts",
     "reset",
@@ -139,8 +142,5 @@
     "zwischen",
     "zwölf",
     "ändere",
-    "ändern",
-    "licht",
-    "rauch",
-    "hupe"
+    "ändern"
 ]
