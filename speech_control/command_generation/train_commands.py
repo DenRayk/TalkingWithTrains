@@ -57,33 +57,13 @@ train_function_commands = {
     "hupe": 4
 }
 
-train_direction_commands = {
-    # Commands for train direction with speed stop
 
-    # Direction forwards
-    "geradeaus": "Forwards",
-    "schalte geradeaus": "Forwards",
-    "schalte in richtung geradeaus": "Forwards",
-    "schalte in die richtung geradeaus": "Forwards",
-
-    "setze den weg geradeaus": "Forwards",
-    "setze den pfad geradeaus": "Forwards",
-    "setze den kurs geradeaus": "Forwards",
-    "setze die route geradeaus": "Forwards",
-    "setze die richtung geradeaus": "Forwards",
-
-    "vorwärts": "Forwards",
-    "schalte vorwärts": "Forwards",
-    "schalte in richtung vorwärts": "Forwards",
-    "schalte in die richtung vorwärts": "Forwards",
-
-    "setze den weg auf vorwärts": "Forwards",
-    "setze den pfad auf vorwärts": "Forwards",
-    "setze den kurs auf vorwärts": "Forwards",
-    "setze die route auf vorwärts": "Forwards",
-    "setze die richtung auf vorwärts": "Forwards",
+train_direction_speed_commands = {
+    # Commands for train direction with speed continue
 
     # Direction backwards
+    "zurück": "Backwards",
+    "fahe zurück": "Backwards",
     "rückwärts": "Backwards",
     "schalte rückwärts": "Backwards",
     "schalte in richtung rückwärts": "Backwards",
@@ -95,7 +75,6 @@ train_direction_commands = {
     "setze die route rückwärts": "Backwards",
     "setze die richtung rückwärts": "Backwards",
 
-    "nach hinten": "Backwards",
     "schalte nach hinten": "Backwards",
     "schalte in richtung nach hinten": "Backwards",
     "schalte in die richtung nach hinten": "Backwards",
@@ -105,12 +84,6 @@ train_direction_commands = {
     "setze den kurs auf nach hinten": "Backwards",
     "setze die route auf nach hinten": "Backwards",
     "setze die richtung auf nach hinten": "Backwards",
-}
-
-train_direction_speed_commands = {
-    # Commands for train direction with speed continue
-
-    # Direction backwards
     "fahre rückwärts": "Backwards",
     "fahre in richtung rückwärts": "Backwards",
     "fahre in die richtung rückwärts": "Backwards",
@@ -168,6 +141,27 @@ train_direction_speed_commands = {
     "fahre weiter hinten": "Backwards",
 
     # Direction forwards
+    "geradeaus": "Forwards",
+    "schalte geradeaus": "Forwards",
+    "schalte in richtung geradeaus": "Forwards",
+    "schalte in die richtung geradeaus": "Forwards",
+
+    "setze den weg geradeaus": "Forwards",
+    "setze den pfad geradeaus": "Forwards",
+    "setze den kurs geradeaus": "Forwards",
+    "setze die route geradeaus": "Forwards",
+    "setze die richtung geradeaus": "Forwards",
+
+    "vorwärts": "Forwards",
+    "schalte vorwärts": "Forwards",
+    "schalte in richtung vorwärts": "Forwards",
+    "schalte in die richtung vorwärts": "Forwards",
+
+    "setze den weg auf vorwärts": "Forwards",
+    "setze den pfad auf vorwärts": "Forwards",
+    "setze den kurs auf vorwärts": "Forwards",
+    "setze die route auf vorwärts": "Forwards",
+    "setze die richtung auf vorwärts": "Forwards",
     "fahre geradeaus": "Backwards",
     "fahre in richtung geradeaus": "Backwards",
     "fahre in die richtung geradeaus": "Backwards",
