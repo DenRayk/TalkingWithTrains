@@ -50,11 +50,11 @@ train_add_speed_commands = {
 }
 
 train_function_commands = {
-    "licht an": 1,
-    "licht aus": 1,
-    "rauch an": 2,
-    "rauch aus": 2,
-    "hupe": 4
+    "licht an": 0,
+    "licht aus": 0,
+    "rauch an": 1,
+    "rauch aus": 1,
+    "hupe": 3
 }
 
 
