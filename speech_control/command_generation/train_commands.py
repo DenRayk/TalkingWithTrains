@@ -50,18 +50,21 @@ train_add_speed_commands = {
 }
 
 train_function_commands = {
-    "licht an": 1,
-    "licht aus": 1,
-    "rauch an": 2,
-    "rauch aus": 2,
-    "hupe": 4
+    "licht an": 0,
+    "licht aus": 0,
+    "rauch an": 1,
+    "rauch aus": 1,
+    "hupe": 3,
+    "hupe an": 3,
 }
+
 
 train_direction_speed_commands = {
     # Commands for train direction with speed continue
 
     # Direction backwards
     "zurück": "Backwards",
+    "fahre zurück": "Backwards",
     "rückwärts": "Backwards",
     "schalte rückwärts": "Backwards",
     "schalte in richtung rückwärts": "Backwards",
@@ -82,7 +85,6 @@ train_direction_speed_commands = {
     "setze den kurs auf nach hinten": "Backwards",
     "setze die route auf nach hinten": "Backwards",
     "setze die richtung auf nach hinten": "Backwards",
-
     "fahre rückwärts": "Backwards",
     "fahre in richtung rückwärts": "Backwards",
     "fahre in die richtung rückwärts": "Backwards",
@@ -161,7 +163,6 @@ train_direction_speed_commands = {
     "setze den kurs auf vorwärts": "Forwards",
     "setze die route auf vorwärts": "Forwards",
     "setze die richtung auf vorwärts": "Forwards",
-
     "fahre geradeaus": "Backwards",
     "fahre in richtung geradeaus": "Backwards",
     "fahre in die richtung geradeaus": "Backwards",
