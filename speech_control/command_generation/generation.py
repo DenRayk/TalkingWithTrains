@@ -26,7 +26,9 @@ def generate_commands(commands):
         # Commands for train functions
         for action, value in train_commands.train_function_commands.items():
             command_name = f"{train_name} {action}"
-            if "aus" in command_name:
+            if "hupe" in command_name:
+                commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_on_off(tid, val, 2)
+            elif "aus" in command_name:
                 commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_off(tid, val)
             else:
                 commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_on(tid, val)

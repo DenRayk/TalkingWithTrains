@@ -401,6 +401,14 @@ accessories_three_way_turnouts_commands = {
 }
 
 accessories_uncoupling_tracks_commands = {
+    "entkoppeln": True,
+    "wagen entkoppeln": True,
+    "anhänger entkoppeln": True,
+    "entkoppeln den wagen": True,
+    "entkoppeln den anhänger": True,
+    "entkoppeln die wagen": True,
+    "entkoppeln die anhänger": True,
+
     "aktivier": True,
     "aktiviere": True,
     "aktivieren": True,
