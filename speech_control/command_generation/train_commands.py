@@ -54,7 +54,8 @@ train_function_commands = {
     "licht aus": 0,
     "rauch an": 1,
     "rauch aus": 1,
-    "hupe": 3
+    "hupe": 3,
+    "hupe an": 3,
 }
 
 
@@ -63,7 +64,7 @@ train_direction_speed_commands = {
 
     # Direction backwards
     "zurück": "Backwards",
-    "fahe zurück": "Backwards",
+    "fahre zurück": "Backwards",
     "rückwärts": "Backwards",
     "schalte rückwärts": "Backwards",
     "schalte in richtung rückwärts": "Backwards",

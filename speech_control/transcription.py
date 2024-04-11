@@ -1,4 +1,6 @@
 import json
+import os
+
 from vosk import Model, KaldiRecognizer
 
 model = Model(lang="de")
@@ -10,7 +12,11 @@ def load_grammar(file_path):
         return json.load(file)
 
 
-grammar = load_grammar("speech_control/grammar.json")
+current_dir = os.path.dirname(__file__)
+file_path = os.path.join(current_dir, 'grammar.json')
+grammar = load_grammar(file_path)
+print(f"Loading grammar from {file_path}")
+
 rec.SetGrammar(json.dumps(grammar, ensure_ascii=False))
 
 

@@ -1,3 +1,5 @@
+import time
+
 import requests
 import config
 
@@ -73,6 +75,16 @@ def set_train_function_off(zug, function):
     if response:
         print(f"Zug {zug} {function}")
     return response
+
+
+def set_train_function_on_off(zug, function, sleep_time):
+    responses = []
+    responses.append(set_train_function_on(zug, function))
+
+    time.sleep(sleep_time)
+    responses.append(set_train_function_off(zug, function))
+
+    return responses or None
 
 
 def set_accessory_status(accessory, status):
