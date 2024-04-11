@@ -57,5 +57,7 @@ def extract_activity(prompt_text):
         return "COMMAND_EXECUTED_SUCCESSFULLY"
 
     else:
-        print('Befehl nicht gefunden')
+        print('Befehl nicht gefunden:')
+        print(f'Recognized: "{recognized_command}"\n'
+              f'Best match: "{best_match}" ({score}%)')
         return "COMMAND_NOT_FOUND"
