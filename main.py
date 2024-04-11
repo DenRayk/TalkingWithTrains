@@ -13,7 +13,7 @@ source = sr.Microphone(sample_rate=48000)
 recognizer = sr.Recognizer()
 
 listening_for_wake_word = True
-recognizer.dynamic_energy_threshold = False
+recognizer.dynamic_energy_threshold = True
 
 
 def activate_voice_control():
