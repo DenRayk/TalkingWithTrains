@@ -69,11 +69,19 @@ def prompt(audio):
         activate_voice_control()
 
 
+def print_and_adjust_energy_threshold():
+    print("Energy threshold: ", recognizer.energy_threshold)
+    if recognizer.energy_threshold < 20:
+        recognizer.energy_threshold = 60
+        print("Energy threshold adjusted to 60")
+
+
 def callback(recognizer, audio):
     global listening_for_wake_word
 
     if listening_for_wake_word:
         listen_for_wake_word(audio)
+        print_and_adjust_energy_threshold()
     else:
         prompt(audio)
 
