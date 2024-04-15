@@ -13,7 +13,7 @@ source = sr.Microphone(sample_rate=48000)
 recognizer = sr.Recognizer()
 
 listening_for_wake_word = True
-recognizer.dynamic_energy_threshold = False
+recognizer.dynamic_energy_threshold = True
 
 
 def activate_voice_control():
@@ -69,11 +69,19 @@ def prompt(audio):
         activate_voice_control()
 
 
+def print_and_adjust_energy_threshold():
+    print("Energy threshold: ", recognizer.energy_threshold)
+    if recognizer.energy_threshold < 30:
+        recognizer.energy_threshold = 80
+        print("Energy threshold adjusted to 80")
+
+
 def callback(recognizer, audio):
     global listening_for_wake_word
 
     if listening_for_wake_word:
         listen_for_wake_word(audio)
+        print_and_adjust_energy_threshold()
     else:
         prompt(audio)
 
@@ -85,6 +93,7 @@ def start_listening():
         else:
             print("Adjusting for ambient noise, please be quiet for a moment.")
             recognizer.adjust_for_ambient_noise(s, duration=2)
+            recognizer.energy_threshold = 80
 
     print("Energy threshold: ", recognizer.energy_threshold)
 
