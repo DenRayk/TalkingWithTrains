@@ -32,6 +32,11 @@ commands = {
     "reset system": lambda: http_client.set_system_mode("Reset"),
     "setze system zurück": lambda: http_client.set_system_mode("Reset"),
     "zurücksetzen system": lambda: http_client.set_system_mode("Reset"),
+
+    "zug eins entkoppeln": lambda: http_client.train_function_decouple(3),
+    "zug eins wagen entkoppeln": lambda: http_client.train_function_decouple(3),
+    "bahn eins entkoppeln": lambda: http_client.train_function_decouple(3),
+    "bahn eins wagen entkoppeln": lambda: http_client.train_function_decouple(3),
 }
 
 # Dynamically create commands

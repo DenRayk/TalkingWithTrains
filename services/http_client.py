@@ -87,6 +87,19 @@ def set_train_function_on_off(zug, function, sleep_time):
     return responses or None
 
 
+def train_function_decouple(sleep_time):
+    #Hartkodiert für zug_1 entkoppeln
+    responses = []
+    responses.append(set_train_function_on("zug_1", 1))
+    responses.append(set_train_function_on("zug_1", 4))
+
+    time.sleep(sleep_time)
+    responses.append(set_train_function_off("zug_1", 1))
+    responses.append(set_train_function_off("zug_1", 4))
+
+    return responses or None
+
+
 def set_accessory_status(accessory, status):
     response = send_post_request(f"accessory/{config.accessories[accessory]}",
                                  data={"position": int(status), "power": 1, "value": 1})

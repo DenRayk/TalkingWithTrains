@@ -51,13 +51,29 @@ train_add_speed_commands = {
 
 train_function_commands = {
     "licht an": 0,
+    "licht einschalten": 0,
+    "licht aktivieren": 0,
     "licht aus": 0,
+    "licht ausschalten": 0,
+    "licht deaktivieren": 0,
+
     "rauch an": 1,
+    "rauch einschalten": 1,
+    "rauch aktivieren": 1,
     "rauch aus": 1,
+    "rauch ausschalten": 1,
+    "rauch deaktivieren": 1,
+
     "betriebs geräusch an": 2,
+    "betriebs geräusch einschalten": 2,
+    "betriebs geräusch aktivieren": 2,
     "betriebs geräusch aus": 2,
+    "betriebs geräusch ausschalten": 2,
+    "betriebs geräusch deaktivieren": 2,
+
     "hupe": 3,
     "hupe an": 3,
+    "hupe aktivieren": 3,
 }
 
 
