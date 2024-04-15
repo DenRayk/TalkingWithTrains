@@ -71,9 +71,9 @@ def prompt(audio):
 
 def print_and_adjust_energy_threshold():
     print("Energy threshold: ", recognizer.energy_threshold)
-    if recognizer.energy_threshold < 20:
-        recognizer.energy_threshold = 60
-        print("Energy threshold adjusted to 60")
+    if recognizer.energy_threshold < 30:
+        recognizer.energy_threshold = 80
+        print("Energy threshold adjusted to 80")
 
 
 def callback(recognizer, audio):
@@ -93,6 +93,7 @@ def start_listening():
         else:
             print("Adjusting for ambient noise, please be quiet for a moment.")
             recognizer.adjust_for_ambient_noise(s, duration=2)
+            recognizer.energy_threshold = 80
 
     print("Energy threshold: ", recognizer.energy_threshold)
 

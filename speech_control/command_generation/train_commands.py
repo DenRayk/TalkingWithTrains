@@ -54,6 +54,8 @@ train_function_commands = {
     "licht aus": 0,
     "rauch an": 1,
     "rauch aus": 1,
+    "betriebs geräusch an": 2,
+    "betriebs geräusch aus": 2,
     "hupe": 3,
     "hupe an": 3,
 }
