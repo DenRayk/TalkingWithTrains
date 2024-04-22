@@ -29,9 +29,16 @@ def generate_commands(commands):
             if "hupe" in command_name:
                 commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_on_off(tid, val, 2)
             elif any(keyword in command_name for keyword in ["aus", "ausschalten", "deaktivieren"]):
-                commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_off(tid, val)
+                if not(train_id == "zug_1" and "rauch" in command_name):
+                    commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_off(tid, val)
+                else:
+                    print("NOT IN: " + command_name)
             else:
-                commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_on(tid, val)
+                if train_id == "zug_1" and "rauch" in command_name:
+                    commands[command_name] = lambda tid=train_id: http_client.set_train_function_on_off(tid, 14, 1)
+                    print(command_name)
+                else:
+                    commands[command_name] = lambda tid=train_id, val=value: http_client.set_train_function_on(tid, val)
 
 
     # Dynamically create commands for accessory signals
