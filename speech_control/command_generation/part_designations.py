@@ -104,6 +104,12 @@ accessories_three_way_turnouts = {
 
 accessories_uncoupling_tracks = {
     #Entkupplungsgleise
+    "weiche vier": "W 4",
+    "weiche elf": "W 11",
+
+    "weiche w vier": "W 4",
+    "weiche w elf": "W 11",
+
     "gleis vier": "W 4",
     "gleis elf": "W 11",
 
@@ -124,4 +130,8 @@ trains = {
     "bahn zwei": "zug_2",
     "bahn drei": "zug_3",
     "bahn vier": "zug_4",
+    "lok eins": "zug_1",
+    "lok zwei": "zug_2",
+    "lok drei": "zug_3",
+    "lok vier": "zug_4",
 }
